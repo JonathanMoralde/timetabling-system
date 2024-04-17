@@ -21,29 +21,144 @@
           <q-item-section> Dashboard </q-item-section>
         </q-item>
 
-        <q-item active clickable v-ripple>
-          <q-item-section avatar>
+        <!-- <q-item active clickable v-ripple> -->
+        <!-- <q-item-section avatar>
             <q-icon name="table_chart" />
           </q-item-section>
 
-          <q-item-section> Timetables </q-item-section>
-        </q-item>
+          <q-item-section> Timetables </q-item-section> -->
+        <q-expansion-item
+          group="drawerNav"
+          icon="table_chart"
+          label="Timetables"
+        >
+          <q-list>
+            <q-item clickable v-ripple class="q-pl-xl">
+              <q-item-section avatar>
+                <q-icon name="table_view" />
+              </q-item-section>
+              <q-item-section>Instructor</q-item-section>
+            </q-item>
 
-        <q-item clickable v-ripple>
-          <q-item-section avatar>
+            <q-item clickable v-ripple class="q-pl-xl">
+              <q-item-section avatar>
+                <q-icon name="table_view" />
+              </q-item-section>
+              <q-item-section>Student</q-item-section>
+            </q-item>
+
+            <q-item clickable v-ripple class="q-pl-xl">
+              <q-item-section avatar>
+                <q-icon name="table_view" />
+              </q-item-section>
+              <q-item-section>Rooms</q-item-section>
+            </q-item>
+          </q-list>
+        </q-expansion-item>
+        <!-- </q-item> -->
+
+        <!-- <q-item clickable v-ripple> -->
+        <!-- <q-item-section avatar>
             <q-icon name="list" />
           </q-item-section>
 
-          <q-item-section> Manage Data </q-item-section>
-        </q-item>
+          <q-item-section> Manage Data </q-item-section> -->
+        <q-expansion-item group="drawerNav" icon="list" label="Manage Data">
+          <q-list>
+            <q-item clickable v-ripple class="q-pl-xl">
+              <q-item-section avatar>
+                <q-icon name="meeting_room" />
+              </q-item-section>
+              <q-item-section>Rooms</q-item-section>
+            </q-item>
 
-        <q-item clickable v-ripple>
-          <q-item-section avatar>
-            <q-icon name="person_add" />
+            <q-item clickable v-ripple class="q-pl-xl">
+              <q-item-section avatar>
+                <q-icon name="school" />
+              </q-item-section>
+              <q-item-section>Programs</q-item-section>
+            </q-item>
+
+            <q-item clickable v-ripple class="q-pl-xl">
+              <q-item-section avatar>
+                <q-icon name="history_edu" />
+              </q-item-section>
+              <q-item-section>Curriculum</q-item-section>
+            </q-item>
+
+            <q-item clickable v-ripple class="q-pl-xl">
+              <q-item-section avatar>
+                <q-icon name="edit_note" />
+              </q-item-section>
+              <q-item-section>Course Types</q-item-section>
+            </q-item>
+
+            <q-item clickable v-ripple class="q-pl-xl">
+              <q-item-section avatar>
+                <q-icon name="subject" />
+              </q-item-section>
+              <q-item-section>Courses</q-item-section>
+            </q-item>
+
+            <q-item clickable v-ripple class="q-pl-xl">
+              <q-item-section avatar>
+                <q-icon name="group" />
+              </q-item-section>
+              <q-item-section>Students</q-item-section>
+            </q-item>
+
+            <q-item clickable v-ripple class="q-pl-xl">
+              <q-item-section avatar>
+                <q-icon name="supervisor_account" />
+              </q-item-section>
+              <q-item-section>Instructors</q-item-section>
+            </q-item>
+
+            <q-item clickable v-ripple class="q-pl-xl">
+              <q-item-section avatar>
+                <q-icon name="schedule" />
+              </q-item-section>
+              <q-item-section>Schedules</q-item-section>
+            </q-item>
+          </q-list>
+        </q-expansion-item>
+        <!-- </q-item> -->
+
+        <!-- <q-item> -->
+        <!-- <q-item-section avatar>
+            <q-icon name="manage_accounts" />
           </q-item-section>
+          
+          <q-item-section> Manage Profile </q-item-section> -->
+        <q-expansion-item
+          group="drawerNav"
+          icon="person_add"
+          label="Add Accounts"
+        >
+          <q-list>
+            <q-item clickable v-ripple class="q-pl-xl">
+              <q-item-section avatar>
+                <q-icon name="person_3" />
+              </q-item-section>
+              <q-item-section>Admin</q-item-section>
+            </q-item>
 
-          <q-item-section> Add Accounts </q-item-section>
-        </q-item>
+            <q-item clickable v-ripple class="q-pl-xl">
+              <q-item-section avatar>
+                <q-icon name="person_2" />
+              </q-item-section>
+              <q-item-section>Instructor</q-item-section>
+            </q-item>
+
+            <q-item clickable v-ripple class="q-pl-xl">
+              <q-item-section avatar>
+                <q-icon name="person" />
+              </q-item-section>
+              <q-item-section>Student</q-item-section>
+            </q-item>
+          </q-list>
+        </q-expansion-item>
+        <!-- </q-item> -->
 
         <q-item clickable v-ripple>
           <q-item-section avatar>
