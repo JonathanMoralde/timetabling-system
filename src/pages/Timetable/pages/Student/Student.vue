@@ -1,5 +1,5 @@
 <template>
-  <div>Dashboard</div>
+  <div>student timetable</div>
 </template>
 
 <script lang="ts">

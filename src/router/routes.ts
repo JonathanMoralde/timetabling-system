@@ -13,7 +13,27 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'timetable',
         name: 'timetable',
-        component: () => import('pages/Timetable/Timetable.vue'),
+        component: () =>
+          import('pages/Timetable/layout/TimtableMainLayout.vue'),
+        children: [
+          {
+            path: 'instructor',
+            name: 'instructor',
+            component: () =>
+              import('pages/Timetable/pages/Instructor/Instructor.vue'),
+          },
+          {
+            path: 'student',
+            name: 'student',
+            component: () =>
+              import('pages/Timetable/pages/Student/Student.vue'),
+          },
+          {
+            path: 'room',
+            name: 'room',
+            component: () => import('pages/Timetable/pages/Room/Room.vue'),
+          },
+        ],
       },
       {
         path: 'manage-data',
@@ -78,7 +98,27 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'add-accounts',
         name: 'add-accounts',
-        component: () => import('pages/AddAccount/AddAccount.vue'),
+        component: () =>
+          import('pages/AddAccount/layout/AddAccountMainLayout.vue'),
+        children: [
+          {
+            path: 'create-admin',
+            name: 'create-admin',
+            component: () => import('pages/AddAccount/pages/Admin/Admin.vue'),
+          },
+          {
+            path: 'create-instructor',
+            name: 'create-instructor',
+            component: () =>
+              import('pages/AddAccount/pages/Instructor/Instructor.vue'),
+          },
+          {
+            path: 'create-student',
+            name: 'create-student',
+            component: () =>
+              import('pages/AddAccount/pages/Student/Student.vue'),
+          },
+        ],
       },
       {
         path: 'manage-profile',

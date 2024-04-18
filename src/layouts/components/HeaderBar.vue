@@ -10,7 +10,9 @@
         @click="ToggleLeftDrawer"
       />
 
-      <q-toolbar-title> Automated Class Timetabling System </q-toolbar-title>
+      <q-toolbar-title class="text-subtitle1">
+        Automated Class Timetabling System
+      </q-toolbar-title>
 
       <!-- SEM & YEAR SELECT HERE -->
       <!-- <div>Quasar v{{ $q.version }}</div> -->
