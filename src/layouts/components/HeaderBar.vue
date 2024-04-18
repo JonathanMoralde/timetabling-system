@@ -1,6 +1,6 @@
 <template>
-  <q-header elevated>
-    <q-toolbar>
+  <q-header elevated class="row items-center">
+    <q-toolbar class="col">
       <q-btn
         flat
         dense
@@ -13,20 +13,42 @@
       <q-toolbar-title class="text-subtitle1">
         Automated Class Timetabling System
       </q-toolbar-title>
-
-      <!-- SEM & YEAR SELECT HERE -->
-      <!-- <div>Quasar v{{ $q.version }}</div> -->
     </q-toolbar>
+    <!-- SEM & YEAR SELECT HERE -->
+    <q-select
+      standout
+      v-model="selectedSY"
+      :options="options"
+      label="Active SY & Sem"
+      class="col-3 q-pr-lg"
+      :dark="true"
+      dense
+      @update:model-value="
+        (value) => {
+          changeActiveSemSY(value);
+        }
+      "
+    />
   </q-header>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref, computed } from 'vue';
 import { ToggleLeftDrawer } from 'src/composables/Triggers';
+import {
+  activeSemSY,
+  options,
+  changeActiveSemSY,
+} from 'src/composables/SemSYSelect';
 
 export default defineComponent({
   setup() {
-    return { ToggleLeftDrawer };
+    const selectedSY = ref(
+      computed(() => {
+        return activeSemSY.value || '';
+      })
+    );
+    return { ToggleLeftDrawer, selectedSY, options, changeActiveSemSY };
   },
 });
 </script>
