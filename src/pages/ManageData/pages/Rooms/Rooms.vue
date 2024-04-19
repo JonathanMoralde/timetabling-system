@@ -13,7 +13,7 @@
           label="Add Rooms"
           dense
           class="q-px-md q-py-xs q-mr-md"
-          @click="console.log('clicked')"
+          to="add-rooms"
         />
 
         <!-- export btn -->

@@ -2,31 +2,10 @@
   <main>
     <!-- Title & Btn -->
     <div class="flex justify-between items-center q-mb-lg">
-      <div class="flex items-center">
-        <!-- <q-btn
-          @click="$router.go(-1)"
-          round
-          flat
-          non-selectable
-          no-outline
-          q-btn--actionable
-          icon="arrow_back"
-          size="12px"
-        /> -->
-        <h3 class="text-h5 q-ma-none text-bold" style="font-size: 2rem">
-          Create Admin Account
-        </h3>
-      </div>
-
       <div>
-        <!-- export btn -->
-        <q-btn
-          color="primary"
-          label="Import"
-          dense
-          class="q-px-md q-py-xs"
-          @click="console.log('clicked')"
-        />
+        <h3 class="text-h5 q-ma-none text-bold" style="font-size: 2rem">
+          Edit Profile
+        </h3>
       </div>
     </div>
 
@@ -147,40 +126,6 @@
         />
       </div>
 
-      <!-- Password -->
-      <div class="q-mb-md">
-        <q-item-label class="q-py-sm"
-          >Password <span class="text-red">*</span></q-item-label
-        >
-        <q-input
-          v-model="password"
-          type="password"
-          dense
-          placeholder="Password"
-          hide-bottom-space
-          :rules="[(val) => (val !== null && val !== '') || '']"
-          outlined
-          bg-color="white"
-        />
-      </div>
-
-      <!-- Confirm Password -->
-      <div class="q-mb-md">
-        <q-item-label class="q-py-sm"
-          >Confirm Password <span class="text-red">*</span></q-item-label
-        >
-        <q-input
-          v-model="confirmPassword"
-          type="password"
-          dense
-          placeholder="Confirm Password"
-          hide-bottom-space
-          :rules="[(val) => (val !== null && val !== '') || '']"
-          outlined
-          bg-color="white"
-        />
-      </div>
-
       <div>
         <q-btn label="Cancel" flat @click="$router.go(-1)" class="q-mr-md" />
         <q-btn label="Submit" type="submit" color="primary" />
@@ -189,7 +134,7 @@
   </main>
 </template>
 
-<script lang="ts" src="./scripts/Admin.ts"></script>
+<script lang="ts" src="./scripts/EditProfile.ts"></script>
 
 <style scoped>
 .form-width {

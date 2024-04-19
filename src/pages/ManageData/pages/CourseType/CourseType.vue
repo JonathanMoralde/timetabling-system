@@ -10,10 +10,10 @@
         <!-- add btn -->
         <q-btn
           color="primary"
-          label="Add Rooms"
+          label="Add Course Type"
           dense
           class="q-px-md q-py-xs q-mr-md"
-          @click="console.log('clicked')"
+          to="add-course-type"
         />
 
         <!-- export btn -->

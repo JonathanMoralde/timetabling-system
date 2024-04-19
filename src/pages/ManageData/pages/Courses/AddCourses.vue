@@ -4,7 +4,6 @@
     <div class="flex justify-between items-center q-mb-lg">
       <div class="flex items-center">
         <q-btn
-          v-if="$route.params.fromManageStudents"
           @click="$router.go(-1)"
           round
           flat
@@ -15,7 +14,7 @@
           size="12px"
         />
         <h3 class="text-h5 q-ma-none text-bold" style="font-size: 2rem">
-          Create Student Account
+          Add Course Type
         </h3>
       </div>
 
@@ -33,68 +32,80 @@
 
     <!-- form -->
     <q-form @submit.prevent="console.log('submitted')" class="form-width">
-      <!-- First Name -->
+      <!-- Course Code -->
       <div class="q-mb-md">
         <q-item-label class="q-py-sm"
-          >First Name <span class="text-red">*</span></q-item-label
+          >Course Code <span class="text-red">*</span></q-item-label
         >
         <q-input
-          v-model="firstName"
+          v-model="courseCode"
           dense
-          placeholder="First Name"
-          hide-bottom-space
+          placeholder="Course Code"
           :rules="[(val) => (val !== null && val !== '') || '']"
+          hide-bottom-space
           outlined
           bg-color="white"
         />
       </div>
 
-      <!-- Middle Name -->
+      <!-- Course Type -->
+      <div class="q-mb-lg">
+        <q-item-label class="q-py-sm"
+          >Course Type <span class="text-red">*</span></q-item-label
+        >
+        <q-select
+          v-model="selectedCourseType"
+          outlined
+          bg-color="white"
+          options-selected-class=" text-weight-medium bg-grey-4"
+          dense
+          emit-value
+          map-options
+          hide-bottom-space
+          transition-show="scale"
+          transition-hide="scale"
+          :options="courseTypeOptions"
+          :rules="[(val) => (val !== null && val !== '') || '']"
+        >
+        </q-select>
+      </div>
+
+      <!-- Course Name -->
       <div class="q-mb-md">
         <q-item-label class="q-py-sm"
-          >Middle Name <span class="text-red">*</span></q-item-label
+          >Course Name <span class="text-red">*</span></q-item-label
         >
         <q-input
-          v-model="middleName"
+          v-model="courseName"
           dense
-          placeholder="Middle Name"
-          hide-bottom-space
+          placeholder="Course Name"
           :rules="[(val) => (val !== null && val !== '') || '']"
+          hide-bottom-space
           outlined
           bg-color="white"
         />
       </div>
 
-      <!-- Surname -->
-      <div class="q-mb-md">
+      <!-- Curriculum -->
+      <div class="q-mb-lg">
         <q-item-label class="q-py-sm"
-          >Surname <span class="text-red">*</span></q-item-label
+          >Curriculum <span class="text-red">*</span></q-item-label
         >
-        <q-input
-          v-model="surName"
-          dense
-          placeholder="Surname"
-          hide-bottom-space
-          :rules="[(val) => (val !== null && val !== '') || '']"
+        <q-select
+          v-model="selectedCurriculum"
           outlined
           bg-color="white"
-        />
-      </div>
-
-      <!-- Student ID -->
-      <div class="q-mb-md">
-        <q-item-label class="q-py-sm"
-          >Student ID <span class="text-red">*</span></q-item-label
-        >
-        <q-input
-          v-model="studentID"
+          options-selected-class=" text-weight-medium bg-grey-4"
           dense
-          placeholder="Student ID"
-          :rules="[(val) => (val !== null && val !== '') || '']"
+          emit-value
+          map-options
           hide-bottom-space
-          outlined
-          bg-color="white"
-        />
+          transition-show="scale"
+          transition-hide="scale"
+          :options="curriculumOptions"
+          :rules="[(val) => (val !== null && val !== '') || '']"
+        >
+        </q-select>
       </div>
 
       <!-- Year Level -->
@@ -119,13 +130,13 @@
         </q-select>
       </div>
 
-      <!-- Block -->
+      <!-- Semester -->
       <div class="q-mb-lg">
         <q-item-label class="q-py-sm"
-          >Block <span class="text-red">*</span></q-item-label
+          >Semester <span class="text-red">*</span></q-item-label
         >
         <q-select
-          v-model="selectedBlock"
+          v-model="selectedSemester"
           outlined
           bg-color="white"
           options-selected-class=" text-weight-medium bg-grey-4"
@@ -135,83 +146,10 @@
           hide-bottom-space
           transition-show="scale"
           transition-hide="scale"
-          :options="blockOptions"
+          :options="semesterOptions"
           :rules="[(val) => (val !== null && val !== '') || '']"
         >
         </q-select>
-      </div>
-
-      <!-- Program -->
-      <div class="q-mb-lg">
-        <q-item-label class="q-py-sm"
-          >Program <span class="text-red">*</span></q-item-label
-        >
-        <q-select
-          v-model="selectedProgram"
-          outlined
-          bg-color="white"
-          options-selected-class=" text-weight-medium bg-grey-4"
-          dense
-          emit-value
-          map-options
-          hide-bottom-space
-          transition-show="scale"
-          transition-hide="scale"
-          :options="programOptions"
-          :rules="[(val) => (val !== null && val !== '') || '']"
-        >
-        </q-select>
-      </div>
-
-      <!-- Email -->
-      <div class="q-mb-md">
-        <q-item-label class="q-py-sm"
-          >Email <span class="text-red">*</span></q-item-label
-        >
-        <q-input
-          v-model="email"
-          type="email"
-          dense
-          placeholder="Email"
-          hide-bottom-space
-          :rules="[(val) => (val !== null && val !== '') || '']"
-          outlined
-          bg-color="white"
-        />
-      </div>
-
-      <!-- Password -->
-      <div class="q-mb-md">
-        <q-item-label class="q-py-sm"
-          >Password <span class="text-red">*</span></q-item-label
-        >
-        <q-input
-          v-model="password"
-          type="password"
-          dense
-          placeholder="Password"
-          hide-bottom-space
-          :rules="[(val) => (val !== null && val !== '') || '']"
-          outlined
-          bg-color="white"
-        />
-      </div>
-
-      <!-- Confirm Password -->
-      <div class="q-mb-md">
-        <q-item-label class="q-py-sm"
-          >Confirm Password <span class="text-red">*</span></q-item-label
-        >
-        <q-input
-          v-model="confirmPassword"
-          type="password"
-          dense
-          placeholder="Confirm Password"
-          hide-bottom-space
-          :rules="[(val) => (val !== null && val !== '') || '']"
-          outlined
-          bg-color="white"
-        />
       </div>
 
       <div>
@@ -222,7 +160,7 @@
   </main>
 </template>
 
-<script lang="ts" src="./scripts/Student.ts"></script>
+<script lang="ts" src="./scripts/AddCourses.ts"></script>
 
 <style scoped>
 .form-width {

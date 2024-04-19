@@ -10,10 +10,15 @@
         <!-- add btn -->
         <q-btn
           color="primary"
-          label="Add Rooms"
+          label="Add Students"
           dense
           class="q-px-md q-py-xs q-mr-md"
-          @click="console.log('clicked')"
+          :to="{
+            name: 'create-student',
+            params: {
+              fromManageStudents: true,
+            },
+          }"
         />
 
         <!-- export btn -->

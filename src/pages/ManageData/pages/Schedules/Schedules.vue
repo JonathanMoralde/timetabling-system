@@ -10,10 +10,10 @@
         <!-- add btn -->
         <q-btn
           color="primary"
-          label="Add Rooms"
+          label="Add Schedules"
           dense
           class="q-px-md q-py-xs q-mr-md"
-          @click="console.log('clicked')"
+          to="add-schedules"
         />
 
         <!-- export btn -->

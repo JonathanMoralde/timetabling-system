@@ -46,10 +46,22 @@ const routes: RouteRecordRaw[] = [
             component: () => import('pages/ManageData/pages/Rooms/Rooms.vue'),
           },
           {
+            path: 'add-rooms',
+            name: 'add-rooms',
+            component: () =>
+              import('pages/ManageData/pages/Rooms/AddRooms.vue'),
+          },
+          {
             path: 'programs',
             name: 'programs',
             component: () =>
               import('pages/ManageData/pages/Programs/Programs.vue'),
+          },
+          {
+            path: 'add-programs',
+            name: 'add-programs',
+            component: () =>
+              import('pages/ManageData/pages/Programs/AddPrograms.vue'),
           },
           {
             path: 'curriculum',
@@ -58,16 +70,34 @@ const routes: RouteRecordRaw[] = [
               import('pages/ManageData/pages/Curriculum/Curriculum.vue'),
           },
           {
+            path: 'add-curriculum',
+            name: 'add-curriculum',
+            component: () =>
+              import('pages/ManageData/pages/Curriculum/AddCurriculum.vue'),
+          },
+          {
             path: 'course-type',
             name: 'course-type',
             component: () =>
               import('pages/ManageData/pages/CourseType/CourseType.vue'),
           },
           {
+            path: 'add-course-type',
+            name: 'add-course-type',
+            component: () =>
+              import('pages/ManageData/pages/CourseType/AddCourseType.vue'),
+          },
+          {
             path: 'courses',
             name: 'courses',
             component: () =>
               import('pages/ManageData/pages/Courses/Courses.vue'),
+          },
+          {
+            path: 'add-courses',
+            name: 'add-courses',
+            component: () =>
+              import('pages/ManageData/pages/Courses/AddCourses.vue'),
           },
           {
             path: 'students',
@@ -93,6 +123,12 @@ const routes: RouteRecordRaw[] = [
             component: () =>
               import('pages/ManageData/pages/Schedules/Schedules.vue'),
           },
+          {
+            path: 'add-schedules',
+            name: 'add-schedules',
+            component: () =>
+              import('pages/ManageData/pages/Schedules/AddSchedules.vue'),
+          },
         ],
       },
       {
@@ -107,23 +143,43 @@ const routes: RouteRecordRaw[] = [
             component: () => import('pages/AddAccount/pages/Admin/Admin.vue'),
           },
           {
-            path: 'create-instructor',
+            path: 'create-instructor/:fromManageInstructors?',
             name: 'create-instructor',
             component: () =>
               import('pages/AddAccount/pages/Instructor/Instructor.vue'),
+            props: true,
           },
           {
-            path: 'create-student',
+            path: 'create-student/:fromManageStudents?',
             name: 'create-student',
             component: () =>
               import('pages/AddAccount/pages/Student/Student.vue'),
+            props: true,
           },
         ],
       },
       {
         path: 'manage-profile',
         name: 'manage-profile',
-        component: () => import('pages/ManageProfile/ManageProfile.vue'),
+        component: () =>
+          import('src/pages/ManageProfile/layout/ManageProfileLayout.vue'),
+        children: [
+          {
+            path: 'edit-profile',
+            name: 'edit-profile',
+            component: () =>
+              import('pages/ManageProfile/pages/EditProfile/EditProfile.vue'),
+          },
+          {
+            path: 'change-password',
+            name: 'change-password',
+            component: () =>
+              import(
+                'pages/ManageProfile/pages/ChangePassword/ChangePassword.vue'
+              ),
+            props: true,
+          },
+        ],
       },
     ],
   },

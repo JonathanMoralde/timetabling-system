@@ -10,10 +10,15 @@
         <!-- add btn -->
         <q-btn
           color="primary"
-          label="Add Rooms"
+          label="Add Instructors"
           dense
           class="q-px-md q-py-xs q-mr-md"
-          @click="console.log('clicked')"
+          :to="{
+            name: 'create-instructor',
+            params: {
+              fromManageInstructors: true,
+            },
+          }"
         />
 
         <!-- export btn -->

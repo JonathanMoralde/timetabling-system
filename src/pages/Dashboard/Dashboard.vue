@@ -1,5 +1,5 @@
 <template>
-  <div>Dashboard</div>
+  <main class="q-py-lg q-px-xl q-mx-md">Dashboard</main>
 </template>
 
 <script lang="ts">

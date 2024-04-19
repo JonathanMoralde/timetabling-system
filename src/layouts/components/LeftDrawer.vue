@@ -199,13 +199,44 @@
           </q-list>
         </q-expansion-item>
 
-        <q-item clickable v-ripple :to="{ name: 'manage-profile' }">
+        <!-- <q-item clickable v-ripple :to="{ name: 'edit-profile' }">
           <q-item-section avatar>
             <q-icon name="manage_accounts" />
           </q-item-section>
 
-          <q-item-section> Manage Profile </q-item-section>
-        </q-item>
+          <q-item-section> Edit Profile </q-item-section>
+        </q-item> -->
+        <q-expansion-item
+          group="drawerNav"
+          icon="manage_accounts"
+          label="Manage Profile"
+        >
+          <q-list>
+            <q-item
+              clickable
+              v-ripple
+              class="q-pl-xl"
+              :to="{ name: 'edit-profile' }"
+            >
+              <q-item-section avatar>
+                <q-icon name="edit" />
+              </q-item-section>
+              <q-item-section>Edit Profile</q-item-section>
+            </q-item>
+
+            <q-item
+              clickable
+              v-ripple
+              class="q-pl-xl"
+              :to="{ name: 'change-password' }"
+            >
+              <q-item-section avatar>
+                <q-icon name="password" />
+              </q-item-section>
+              <q-item-section>Change Password</q-item-section>
+            </q-item>
+          </q-list>
+        </q-expansion-item>
 
         <q-item clickable v-ripple>
           <q-item-section avatar>
