@@ -1,5 +1,9 @@
 <template>
-  <q-header bordered class="bg-grey-3 text-black q-px-xl">
+  <q-header
+    bordered
+    class="q-px-xl"
+    :class="$q.dark.isActive ? 'bg-dark-page' : 'bg-grey-3 text-black'"
+  >
     <div class="row items-center q-py-md">
       <q-toolbar class="col q-pl-sm">
         <q-btn
@@ -17,7 +21,6 @@
       </q-toolbar>
       <!-- SEM & YEAR SELECT HERE -->
       <q-select
-        standout
         v-model="selectedSY"
         :options="options"
         label="Active SY & Sem"
@@ -28,6 +31,7 @@
             changeActiveSemSY(value);
           }
         "
+        standout="bg-primary text-white"
       />
     </div>
   </q-header>
@@ -41,15 +45,17 @@ import {
   options,
   changeActiveSemSY,
 } from 'src/composables/SemSYSelect';
+import { useQuasar } from 'quasar';
 
 export default defineComponent({
   setup() {
+    const $q = useQuasar();
     const selectedSY = ref(
       computed(() => {
         return activeSemSY.value || '';
       })
     );
-    return { ToggleLeftDrawer, selectedSY, options, changeActiveSemSY };
+    return { $q, ToggleLeftDrawer, selectedSY, options, changeActiveSemSY };
   },
 });
 </script>

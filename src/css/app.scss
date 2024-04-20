@@ -1,1 +1,11 @@
 // app global css in SCSS form
+
+.body--light {
+  background: $grey-3;
+  transition: background-color 0.3s ease-in;
+}
+
+.body--dark {
+  background: #244550;
+  transition: background-color 0.3s ease-in;
+}

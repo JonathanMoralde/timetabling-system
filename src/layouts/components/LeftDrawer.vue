@@ -4,16 +4,22 @@
     show-if-above
     :width="250"
     :breakpoint="400"
+    class="bg-primary text-white"
   >
-    <q-scroll-area
-      style="
-        height: calc(100% - 150px);
-        margin-top: 150px;
-        border-right: 1px solid #ddd;
-      "
-    >
-      <q-list padding>
-        <q-item clickable v-ripple :to="{ name: 'dashboard' }">
+    <q-scroll-area style="height: calc(100% - 150px); margin-top: 82px">
+      <q-separator
+        color="white"
+        class="q-mx-sm"
+        style="margin-bottom: 18px; border-radius: 2rem"
+      />
+      <q-list padding class="q-mx-sm">
+        <q-item
+          clickable
+          v-ripple
+          :to="{ name: 'dashboard' }"
+          active-class="text-accent active-bg"
+          class=""
+        >
           <q-item-section avatar>
             <q-icon name="dashboard" />
           </q-item-section>
@@ -25,6 +31,8 @@
           group="drawerNav"
           icon="table_chart"
           label="Timetables"
+          header-class="border-radius"
+          expand-icon-class="text-grey-4"
         >
           <q-list>
             <q-item
@@ -32,6 +40,7 @@
               v-ripple
               class="q-pl-xl"
               :to="{ name: 'instructor' }"
+              active-class="text-accent active-bg"
             >
               <q-item-section avatar>
                 <q-icon name="table_view" />
@@ -44,6 +53,7 @@
               v-ripple
               class="q-pl-xl"
               :to="{ name: 'student' }"
+              active-class="text-accent active-bg"
             >
               <q-item-section avatar>
                 <q-icon name="table_view" />
@@ -51,7 +61,13 @@
               <q-item-section>Student</q-item-section>
             </q-item>
 
-            <q-item clickable v-ripple class="q-pl-xl" :to="{ name: 'room' }">
+            <q-item
+              clickable
+              v-ripple
+              class="q-pl-xl"
+              :to="{ name: 'room' }"
+              active-class="text-accent active-bg"
+            >
               <q-item-section avatar>
                 <q-icon name="table_view" />
               </q-item-section>
@@ -60,13 +76,19 @@
           </q-list>
         </q-expansion-item>
 
-        <q-expansion-item group="drawerNav" icon="list" label="Manage Data">
+        <q-expansion-item
+          group="drawerNav"
+          icon="list"
+          label="Manage Data"
+          expand-icon-class="text-grey-4"
+        >
           <q-list>
             <q-item
               clickable
               v-ripple
               class="q-pl-xl"
               :to="{ name: 'departments' }"
+              active-class="text-accent active-bg"
             >
               <q-item-section avatar>
                 <q-icon name="groups" />
@@ -74,7 +96,13 @@
               <q-item-section>Departments</q-item-section>
             </q-item>
 
-            <q-item clickable v-ripple class="q-pl-xl" :to="{ name: 'rooms' }">
+            <q-item
+              clickable
+              v-ripple
+              class="q-pl-xl"
+              :to="{ name: 'rooms' }"
+              active-class="text-accent active-bg"
+            >
               <q-item-section avatar>
                 <q-icon name="meeting_room" />
               </q-item-section>
@@ -86,6 +114,7 @@
               v-ripple
               class="q-pl-xl"
               :to="{ name: 'programs' }"
+              active-class="text-accent active-bg"
             >
               <q-item-section avatar>
                 <q-icon name="school" />
@@ -98,6 +127,7 @@
               v-ripple
               class="q-pl-xl"
               :to="{ name: 'curriculum' }"
+              active-class="text-accent active-bg"
             >
               <q-item-section avatar>
                 <q-icon name="history_edu" />
@@ -110,6 +140,7 @@
               v-ripple
               class="q-pl-xl"
               :to="{ name: 'course-type' }"
+              active-class="text-accent active-bg"
             >
               <q-item-section avatar>
                 <q-icon name="edit_note" />
@@ -122,6 +153,7 @@
               v-ripple
               class="q-pl-xl"
               :to="{ name: 'courses' }"
+              active-class="text-accent active-bg"
             >
               <q-item-section avatar>
                 <q-icon name="subject" />
@@ -134,6 +166,7 @@
               v-ripple
               class="q-pl-xl"
               :to="{ name: 'students' }"
+              active-class="text-accent active-bg"
             >
               <q-item-section avatar>
                 <q-icon name="group" />
@@ -146,6 +179,7 @@
               v-ripple
               class="q-pl-xl"
               :to="{ name: 'instructors' }"
+              active-class="text-accent active-bg"
             >
               <q-item-section avatar>
                 <q-icon name="supervisor_account" />
@@ -158,6 +192,7 @@
               v-ripple
               class="q-pl-xl"
               :to="{ name: 'schedules' }"
+              active-class="text-accent active-bg"
             >
               <q-item-section avatar>
                 <q-icon name="schedule" />
@@ -171,6 +206,7 @@
           group="drawerNav"
           icon="person_add"
           label="Add Accounts"
+          expand-icon-class="text-grey-4"
         >
           <q-list>
             <q-item
@@ -178,6 +214,7 @@
               v-ripple
               class="q-pl-xl"
               :to="{ name: 'create-admin' }"
+              active-class="text-accent active-bg"
             >
               <q-item-section avatar>
                 <q-icon name="person_3" />
@@ -190,6 +227,7 @@
               v-ripple
               class="q-pl-xl"
               :to="{ name: 'create-instructor' }"
+              active-class="text-accent active-bg"
             >
               <q-item-section avatar>
                 <q-icon name="person_2" />
@@ -202,6 +240,7 @@
               v-ripple
               class="q-pl-xl"
               :to="{ name: 'create-student' }"
+              active-class="text-accent active-bg"
             >
               <q-item-section avatar>
                 <q-icon name="person" />
@@ -215,6 +254,7 @@
           group="drawerNav"
           icon="manage_accounts"
           label="Manage Profile"
+          expand-icon-class="text-grey-4"
         >
           <q-list>
             <q-item
@@ -222,6 +262,7 @@
               v-ripple
               class="q-pl-xl"
               :to="{ name: 'edit-profile' }"
+              active-class="text-accent active-bg"
             >
               <q-item-section avatar>
                 <q-icon name="edit" />
@@ -234,6 +275,7 @@
               v-ripple
               class="q-pl-xl"
               :to="{ name: 'change-password' }"
+              active-class="text-accent active-bg"
             >
               <q-item-section avatar>
                 <q-icon name="password" />
@@ -243,7 +285,7 @@
           </q-list>
         </q-expansion-item>
 
-        <q-item clickable v-ripple>
+        <q-item clickable v-ripple active-class="text-accent active-bg">
           <q-item-section avatar>
             <q-icon name="logout" />
           </q-item-section>
@@ -253,32 +295,82 @@
       </q-list>
     </q-scroll-area>
 
-    <q-img
+    <!-- <q-img
       class="absolute-top"
       src="https://cdn.quasar.dev/img/material.png"
       style="height: 150px"
-    >
-      <div class="absolute-bottom bg-transparent">
-        <q-avatar size="56px" class="q-mb-sm">
+    > -->
+    <div class="absolute-top q-pa-sm q-pt-md">
+      <div class="flex items-center">
+        <q-avatar size="48px" class="q-mr-md">
           <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
         </q-avatar>
-        <div class="text-weight-bold">Jonathan Moralde</div>
-        <div>Admin</div>
+        <div>
+          <div class="text-weight-bold">Jonathan Moralde</div>
+          <div>Admin</div>
+        </div>
       </div>
-    </q-img>
+    </div>
+    <!-- </q-img> -->
+
+    <div class="absolute-bottom flex justify-center items-center q-pb-md">
+      <div class="custom-box-shadow-inset">
+        <q-btn
+          flat
+          dense
+          :icon="isDark ? 'light_mode' : 'dark_mode'"
+          :label="isDark ? 'Go with light version' : 'Go with dark version'"
+          @click="toggleDarkMode"
+          class="q-px-sm q-py-sm"
+        />
+      </div>
+    </div>
   </q-drawer>
 </template>
 
 <script lang="ts">
 import { ref } from 'vue';
 import { LeftDrawerState } from 'src/composables/Triggers';
+import { useQuasar } from 'quasar';
 export default {
   setup() {
+    const $q = useQuasar();
+    const isDark = ref<boolean>(false);
+
+    const toggleDarkMode = () => {
+      // toggle
+
+      $q.dark.toggle();
+      isDark.value = !isDark.value;
+    };
     return {
       LeftDrawerState,
+      isDark,
+      toggleDarkMode,
     };
   },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.active-bg {
+  background-color: #eeeeee4a;
+  border-radius: 8px !important;
+}
+.q-focus-helper,
+.q-focusable,
+.q-manual-focusable,
+.q-hoverable {
+  border-radius: 8px !important;
+}
+:deep(.q-expansion-item) {
+  .q-focus-helper {
+    border-radius: 8px !important;
+  }
+}
+
+.custom-box-shadow-inset {
+  box-shadow: inset 0px -10px 20px -22px rgba(238, 238, 238, 0.59);
+  border-radius: 8px;
+}
+</style>

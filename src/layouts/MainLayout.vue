@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr lFf" class="bg-grey-3">
+  <q-layout view="lHh Lpr lFf">
     <HeaderBar />
 
     <LeftDrawer />
@@ -28,3 +28,9 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss">
+.q-layout__section--marginal {
+  background: transparent;
+}
+</style>
