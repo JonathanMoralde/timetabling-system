@@ -62,6 +62,18 @@
 
         <q-expansion-item group="drawerNav" icon="list" label="Manage Data">
           <q-list>
+            <q-item
+              clickable
+              v-ripple
+              class="q-pl-xl"
+              :to="{ name: 'departments' }"
+            >
+              <q-item-section avatar>
+                <q-icon name="groups" />
+              </q-item-section>
+              <q-item-section>Departments</q-item-section>
+            </q-item>
+
             <q-item clickable v-ripple class="q-pl-xl" :to="{ name: 'rooms' }">
               <q-item-section avatar>
                 <q-icon name="meeting_room" />
@@ -199,13 +211,6 @@
           </q-list>
         </q-expansion-item>
 
-        <!-- <q-item clickable v-ripple :to="{ name: 'edit-profile' }">
-          <q-item-section avatar>
-            <q-icon name="manage_accounts" />
-          </q-item-section>
-
-          <q-item-section> Edit Profile </q-item-section>
-        </q-item> -->
         <q-expansion-item
           group="drawerNav"
           icon="manage_accounts"

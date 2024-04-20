@@ -41,6 +41,18 @@ const routes: RouteRecordRaw[] = [
         component: () => import('pages/ManageData/layout/ManageDataLayout.vue'),
         children: [
           {
+            path: 'departments',
+            name: 'departments',
+            component: () =>
+              import('pages/ManageData/pages/Department/Department.vue'),
+          },
+          {
+            path: 'add-departments',
+            name: 'add-departments',
+            component: () =>
+              import('pages/ManageData/pages/Department/AddDepartment.vue'),
+          },
+          {
             path: 'rooms',
             name: 'rooms',
             component: () => import('pages/ManageData/pages/Rooms/Rooms.vue'),
