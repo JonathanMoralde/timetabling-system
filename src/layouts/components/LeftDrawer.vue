@@ -8,7 +8,7 @@
   >
     <q-scroll-area style="height: calc(100% - 150px); margin-top: 82px">
       <q-separator
-        color="white"
+        color="'#eeeeee3f'"
         class="q-mx-sm"
         style="margin-bottom: 18px; border-radius: 2rem"
       />
@@ -329,19 +329,20 @@
 </template>
 
 <script lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { LeftDrawerState } from 'src/composables/Triggers';
 import { useQuasar } from 'quasar';
 export default {
   setup() {
     const $q = useQuasar();
-    const isDark = ref<boolean>(false);
+    const isDark = computed(() => {
+      return $q.dark.isActive;
+    });
 
     const toggleDarkMode = () => {
       // toggle
 
       $q.dark.toggle();
-      isDark.value = !isDark.value;
     };
     return {
       LeftDrawerState,

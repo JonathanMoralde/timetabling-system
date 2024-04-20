@@ -3,9 +3,15 @@
 .body--light {
   background: $grey-3;
   transition: background-color 0.3s ease-in;
+  .q-layout__section--marginal {
+    background: $grey-3;
+  }
 }
 
 .body--dark {
   background: #244550;
   transition: background-color 0.3s ease-in;
+  .q-layout__section--marginal {
+    background: #244550;
+  }
 }

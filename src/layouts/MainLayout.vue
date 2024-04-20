@@ -29,8 +29,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
-.q-layout__section--marginal {
-  background: transparent;
-}
-</style>
+<style lang="scss"></style>
