@@ -11,10 +11,9 @@
         <q-btn
           label="Export as PDF"
           dense
-          outline
           class="q-px-md q-py-xs"
-          :class="$q.dark.isActive ? 'bg-dark' : 'bg-white'"
-          :color="$q.dark.isActive ? 'white' : 'grey-10'"
+          :color="$q.dark.isActive ? 'white' : 'primary'"
+          :text-color="$q.dark.isActive ? 'primary' : 'white'"
           @click="console.log('clicked')"
         />
       </div>

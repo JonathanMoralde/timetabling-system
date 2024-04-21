@@ -127,7 +127,6 @@
       </div>
 
       <div class="row justify-center items-center">
-        <q-btn label="Cancel" flat @click="$router.go(-1)" class="q-mr-md" />
         <q-btn
           label="Submit"
           type="submit"
@@ -141,8 +140,4 @@
 
 <script lang="ts" src="./scripts/EditProfile.ts"></script>
 
-<style scoped>
-.form-width {
-  width: 25%;
-}
-</style>
+<style scoped></style>

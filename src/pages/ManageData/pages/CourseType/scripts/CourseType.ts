@@ -34,7 +34,7 @@ export default defineComponent({
       {
         name: 'laboratory_unit',
         align: 'right',
-        label: 'Price/Downpayment',
+        label: 'Laboratory Unit',
         field: 'laboratory_unit',
         // format: (val) => `₱ ${val.toLocaleString()}`,
       },
