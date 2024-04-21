@@ -1,5 +1,11 @@
 // app global css in SCSS form
 
+body {
+  .form-width {
+    width: 25%;
+  }
+}
+
 .body--light {
   background: $grey-3;
   transition: background-color 0.3s ease-in;

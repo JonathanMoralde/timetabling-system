@@ -12,6 +12,7 @@
           q-btn--actionable
           icon="arrow_back"
           size="12px"
+          class="q-mr-sm"
         />
         <h3 class="text-h5 q-ma-none text-bold" style="font-size: 2rem">
           Add Departments
@@ -19,9 +20,10 @@
       </div>
 
       <div>
-        <!-- export btn -->
+        <!-- Import btn -->
         <q-btn
-          color="primary"
+          :color="$q.dark.isActive ? 'white' : 'primary'"
+          :text-color="$q.dark.isActive ? 'primary' : 'white'"
           label="Import"
           dense
           class="q-px-md q-py-xs"
@@ -44,12 +46,12 @@
           :rules="[(val) => (val !== null && val !== '') || '']"
           hide-bottom-space
           outlined
-          bg-color="white"
+          :bg-color="$q.dark.isActive ? 'dark' : 'white'"
         />
       </div>
 
       <!-- Dean's Name -->
-      <div class="q-mb-md">
+      <div class="q-mb-lg">
         <q-item-label class="q-py-sm"
           >Dean's Name <span class="text-red">*</span></q-item-label
         >
@@ -60,13 +62,18 @@
           :rules="[(val) => (val !== null && val !== '') || '']"
           hide-bottom-space
           outlined
-          bg-color="white"
+          :bg-color="$q.dark.isActive ? 'dark' : 'white'"
         />
       </div>
 
-      <div>
+      <div class="row justify-center items-center">
         <q-btn label="Cancel" flat @click="$router.go(-1)" class="q-mr-md" />
-        <q-btn label="Submit" type="submit" color="primary" />
+        <q-btn
+          label="Submit"
+          type="submit"
+          :color="$q.dark.isActive ? 'white' : 'primary'"
+          :text-color="$q.dark.isActive ? 'primary' : 'white'"
+        />
       </div>
     </q-form>
   </main>
@@ -74,8 +81,4 @@
 
 <script lang="ts" src="./scripts/AddDepartment.ts"></script>
 
-<style scoped>
-.form-width {
-  width: 25%;
-}
-</style>
+<style scoped></style>

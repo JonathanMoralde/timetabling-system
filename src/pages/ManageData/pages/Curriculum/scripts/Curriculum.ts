@@ -12,38 +12,18 @@ export default defineComponent({
     // For table column
     let columns: QTableProps['columns'] = [
       {
-        name: 'quotation_req_num',
+        name: 'curriculum_program',
         required: true,
-        label: 'Quotation Req. Number',
+        label: 'Curriculum Program',
         align: 'left',
-        field: 'quotation_req_num',
+        field: 'curriculum_program',
         sortable: true,
       },
       {
-        name: 'model',
+        name: 'year_effectivity',
         align: 'left',
-        label: 'Model',
-        field: 'model',
-      },
-      {
-        name: 'quantity',
-        align: 'center',
-        label: 'Quantity',
-        field: 'quantity',
-      },
-      {
-        name: 'price_downpayment',
-        align: 'right',
-        label: 'Price/Downpayment',
-        field: 'price_downpayment',
-        // format: (val) => `₱ ${val.toLocaleString()}`,
-      },
-
-      {
-        name: 'status',
-        align: 'left',
-        label: 'Status',
-        field: 'status',
+        label: 'Year Effectivity',
+        field: 'year_effectivity',
       },
       {
         name: 'action',

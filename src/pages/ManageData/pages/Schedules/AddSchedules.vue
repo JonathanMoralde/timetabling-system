@@ -12,6 +12,7 @@
           q-btn--actionable
           icon="arrow_back"
           size="12px"
+          class="q-mr-sm"
         />
         <h3 class="text-h5 q-ma-none text-bold" style="font-size: 2rem">
           Add Schedules
@@ -21,7 +22,8 @@
       <div>
         <!-- Automate btn -->
         <q-btn
-          color="accent"
+          :color="$q.dark.isActive ? 'white' : 'primary'"
+          :text-color="$q.dark.isActive ? 'primary' : 'white'"
           label="Automate Scheduling"
           dense
           class="q-px-md q-py-xs q-mr-md"
@@ -29,8 +31,10 @@
         />
         <!-- import btn -->
         <q-btn
-          color="primary"
+          :class="$q.dark.isActive ? 'bg-dark' : 'bg-white'"
+          :color="$q.dark.isActive ? 'white' : 'grey-10'"
           label="Import"
+          outline
           dense
           class="q-px-md q-py-xs"
           @click="console.log('clicked')"
@@ -40,63 +44,81 @@
 
     <!-- form -->
     <q-form @submit.prevent="console.log('submitted')" class="form-width">
-      <!-- Department's Name -->
+      <!-- Instructor -->
       <div class="q-mb-md">
         <q-item-label class="q-py-sm"
-          >Department Name <span class="text-red">*</span></q-item-label
+          >Instructor <span class="text-red">*</span></q-item-label
         >
-        <q-input
-          v-model="departmentName"
-          dense
-          placeholder="Department Name"
-          :rules="[(val) => (val !== null && val !== '') || '']"
-          hide-bottom-space
+        <q-select
+          v-model="selectedInstructor"
           outlined
-          bg-color="white"
-        />
+          :bg-color="$q.dark.isActive ? 'dark' : 'white'"
+          options-selected-class=" text-weight-medium bg-grey-4"
+          dense
+          emit-value
+          map-options
+          hide-bottom-space
+          transition-show="scale"
+          transition-hide="scale"
+          :options="instructorOptions"
+          :rules="[(val) => (val !== null && val !== '') || '']"
+        >
+        </q-select>
       </div>
 
-      <!-- Building's Name -->
+      <!-- Course -->
       <div class="q-mb-md">
         <q-item-label class="q-py-sm"
-          >Building Name <span class="text-red">*</span></q-item-label
+          >Course <span class="text-red">*</span></q-item-label
         >
-        <q-input
-          v-model="buildingName"
-          dense
-          placeholder="Building Name"
-          :rules="[(val) => (val !== null && val !== '') || '']"
-          hide-bottom-space
+        <q-select
+          v-model="selectedCourse"
           outlined
-          bg-color="white"
-        />
+          :bg-color="$q.dark.isActive ? 'dark' : 'white'"
+          options-selected-class=" text-weight-medium bg-grey-4"
+          dense
+          emit-value
+          map-options
+          hide-bottom-space
+          transition-show="scale"
+          transition-hide="scale"
+          :options="courseOptions"
+          :rules="[(val) => (val !== null && val !== '') || '']"
+        >
+        </q-select>
       </div>
 
-      <!-- Room's Name -->
+      <!-- Room -->
       <div class="q-mb-md">
         <q-item-label class="q-py-sm"
-          >Room Name <span class="text-red">*</span></q-item-label
+          >Room <span class="text-red">*</span></q-item-label
         >
-        <q-input
-          v-model="roomName"
-          dense
-          placeholder="Room Name"
-          :rules="[(val) => (val !== null && val !== '') || '']"
-          hide-bottom-space
+        <q-select
+          v-model="selectedRoom"
           outlined
-          bg-color="white"
-        />
+          :bg-color="$q.dark.isActive ? 'dark' : 'white'"
+          options-selected-class=" text-weight-medium bg-grey-4"
+          dense
+          emit-value
+          map-options
+          hide-bottom-space
+          transition-show="scale"
+          transition-hide="scale"
+          :options="roomOptions"
+          :rules="[(val) => (val !== null && val !== '') || '']"
+        >
+        </q-select>
       </div>
 
       <!-- Type -->
-      <div class="q-mb-lg">
+      <div class="q-mb-md">
         <q-item-label class="q-py-sm"
           >Type <span class="text-red">*</span></q-item-label
         >
         <q-select
           v-model="selectedType"
           outlined
-          bg-color="white"
+          :bg-color="$q.dark.isActive ? 'dark' : 'white'"
           options-selected-class=" text-weight-medium bg-grey-4"
           dense
           emit-value
@@ -109,9 +131,147 @@
         >
         </q-select>
       </div>
-      <div>
+
+      <!-- Program -->
+      <div class="q-mb-md">
+        <q-item-label class="q-py-sm"
+          >Program <span class="text-red">*</span></q-item-label
+        >
+        <q-select
+          v-model="selectedProgram"
+          outlined
+          :bg-color="$q.dark.isActive ? 'dark' : 'white'"
+          options-selected-class=" text-weight-medium bg-grey-4"
+          dense
+          emit-value
+          map-options
+          hide-bottom-space
+          transition-show="scale"
+          transition-hide="scale"
+          :options="programOptions"
+          :rules="[(val) => (val !== null && val !== '') || '']"
+        >
+        </q-select>
+      </div>
+
+      <!-- Year Level -->
+      <div class="q-mb-md">
+        <q-item-label class="q-py-sm"
+          >Year Level <span class="text-red">*</span></q-item-label
+        >
+        <q-select
+          v-model="selectedYearLevel"
+          outlined
+          :bg-color="$q.dark.isActive ? 'dark' : 'white'"
+          options-selected-class=" text-weight-medium bg-grey-4"
+          dense
+          emit-value
+          map-options
+          hide-bottom-space
+          transition-show="scale"
+          transition-hide="scale"
+          :options="yearLevelOptions"
+          :rules="[(val) => (val !== null && val !== '') || '']"
+        >
+        </q-select>
+      </div>
+
+      <!-- Block -->
+      <div class="q-mb-md">
+        <q-item-label class="q-py-sm"
+          >Block <span class="text-red">*</span></q-item-label
+        >
+        <q-select
+          v-model="selectedBlock"
+          outlined
+          :bg-color="$q.dark.isActive ? 'dark' : 'white'"
+          options-selected-class=" text-weight-medium bg-grey-4"
+          dense
+          emit-value
+          map-options
+          hide-bottom-space
+          transition-show="scale"
+          transition-hide="scale"
+          :options="blockOptions"
+          :rules="[(val) => (val !== null && val !== '') || '']"
+        >
+        </q-select>
+      </div>
+
+      <!-- Day -->
+      <div class="q-mb-md">
+        <q-item-label class="q-py-sm"
+          >Day <span class="text-red">*</span></q-item-label
+        >
+        <q-select
+          v-model="selectedDay"
+          outlined
+          :bg-color="$q.dark.isActive ? 'dark' : 'white'"
+          options-selected-class=" text-weight-medium bg-grey-4"
+          dense
+          emit-value
+          map-options
+          hide-bottom-space
+          transition-show="scale"
+          transition-hide="scale"
+          :options="dayOptions"
+          :rules="[(val) => (val !== null && val !== '') || '']"
+        >
+        </q-select>
+      </div>
+
+      <!-- Start Time -->
+      <div class="q-mb-md">
+        <q-item-label class="q-py-sm"
+          >Start Time <span class="text-red">*</span></q-item-label
+        >
+        <q-select
+          v-model="selectedStartTime"
+          outlined
+          :bg-color="$q.dark.isActive ? 'dark' : 'white'"
+          options-selected-class=" text-weight-medium bg-grey-4"
+          dense
+          emit-value
+          map-options
+          hide-bottom-space
+          transition-show="scale"
+          transition-hide="scale"
+          :options="timeOptions"
+          :rules="[(val) => (val !== null && val !== '') || '']"
+        >
+        </q-select>
+      </div>
+
+      <!-- End Time -->
+      <div class="q-mb-lg">
+        <q-item-label class="q-py-sm"
+          >End Time <span class="text-red">*</span></q-item-label
+        >
+        <q-select
+          v-model="selectedEndTime"
+          outlined
+          :bg-color="$q.dark.isActive ? 'dark' : 'white'"
+          options-selected-class=" text-weight-medium bg-grey-4"
+          dense
+          emit-value
+          map-options
+          hide-bottom-space
+          transition-show="scale"
+          transition-hide="scale"
+          :options="timeOptions"
+          :rules="[(val) => (val !== null && val !== '') || '']"
+        >
+        </q-select>
+      </div>
+
+      <div class="row justify-center items-center">
         <q-btn label="Cancel" flat @click="$router.go(-1)" class="q-mr-md" />
-        <q-btn label="Submit" type="submit" color="primary" />
+        <q-btn
+          label="Submit"
+          type="submit"
+          :color="$q.dark.isActive ? 'white' : 'primary'"
+          :text-color="$q.dark.isActive ? 'primary' : 'white'"
+        />
       </div>
     </q-form>
   </main>
@@ -119,8 +279,4 @@
 
 <script lang="ts" src="./scripts/AddSchedules.ts"></script>
 
-<style scoped>
-.form-width {
-  width: 25%;
-}
-</style>
+<style scoped></style>

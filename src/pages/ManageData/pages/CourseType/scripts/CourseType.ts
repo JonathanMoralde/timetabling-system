@@ -12,38 +12,38 @@ export default defineComponent({
     // For table column
     let columns: QTableProps['columns'] = [
       {
-        name: 'quotation_req_num',
+        name: 'course_type',
         required: true,
-        label: 'Quotation Req. Number',
+        label: 'Course Type',
         align: 'left',
-        field: 'quotation_req_num',
+        field: 'course_type',
         sortable: true,
       },
       {
-        name: 'model',
+        name: 'duration',
         align: 'left',
-        label: 'Model',
-        field: 'model',
+        label: 'Duration',
+        field: 'duration',
       },
       {
-        name: 'quantity',
+        name: 'lecture_unit',
         align: 'center',
-        label: 'Quantity',
-        field: 'quantity',
+        label: 'Lecture Unit',
+        field: 'lecture_unit',
       },
       {
-        name: 'price_downpayment',
+        name: 'laboratory_unit',
         align: 'right',
         label: 'Price/Downpayment',
-        field: 'price_downpayment',
+        field: 'laboratory_unit',
         // format: (val) => `₱ ${val.toLocaleString()}`,
       },
 
       {
-        name: 'status',
+        name: 'load unit',
         align: 'left',
-        label: 'Status',
-        field: 'status',
+        label: 'Load Unit',
+        field: 'load unit',
       },
       {
         name: 'action',

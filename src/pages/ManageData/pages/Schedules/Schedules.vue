@@ -9,7 +9,8 @@
       <div>
         <!-- add btn -->
         <q-btn
-          color="primary"
+          :color="$q.dark.isActive ? 'white' : 'primary'"
+          :text-color="$q.dark.isActive ? 'primary' : 'white'"
           label="Add Schedules"
           dense
           class="q-px-md q-py-xs q-mr-md"
@@ -18,11 +19,12 @@
 
         <!-- export btn -->
         <q-btn
-          color="grey-10"
+          :class="$q.dark.isActive ? 'bg-dark' : 'bg-white'"
+          :color="$q.dark.isActive ? 'white' : 'grey-10'"
           label="Export as Excel"
           dense
           outline
-          class="q-px-md q-py-xs bg-white"
+          class="q-px-md q-py-xs"
           @click="console.log('clicked')"
         />
       </div>
@@ -33,10 +35,10 @@
       <q-input
         outlined
         v-model="text"
-        label="Label"
+        label="Search"
         dense
         class="col-2 q-mr-md"
-        bg-color="white"
+        :bg-color="$q.dark.isActive ? 'dark' : 'white'"
       >
         <template v-slot:append>
           <q-icon
@@ -56,12 +58,12 @@
         dense
         label="Square outlined"
         class="col-2"
-        bg-color="white"
+        :bg-color="$q.dark.isActive ? 'dark' : 'white'"
       />
     </div>
 
     <section>
-      <q-table :rows="rows" :columns="columns" row-key="name" />
+      <q-table flat bordered :rows="rows" :columns="columns" row-key="name" />
     </section>
   </main>
 </template>

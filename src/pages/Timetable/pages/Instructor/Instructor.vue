@@ -9,11 +9,12 @@
       <div>
         <!-- export btn -->
         <q-btn
-          color="grey-10"
           label="Export as PDF"
           dense
           outline
-          class="q-px-md q-py-xs bg-white"
+          class="q-px-md q-py-xs"
+          :class="$q.dark.isActive ? 'bg-dark' : 'bg-white'"
+          :color="$q.dark.isActive ? 'white' : 'grey-10'"
           @click="console.log('clicked')"
         />
       </div>
@@ -28,12 +29,14 @@
         dense
         label="Square outlined"
         class="col-2"
-        bg-color="white"
+        :bg-color="$q.dark.isActive ? 'dark' : 'white'"
       />
     </div>
 
     <section>
       <q-table
+        flat
+        bordered
         :rows="rows"
         :columns="columns"
         row-key="time_slot"
