@@ -9,15 +9,29 @@ body {
 .body--light {
   background: $grey-3;
   transition: background-color 0.3s ease-in;
+
+  // for header
   .q-layout__section--marginal {
     background: $grey-3;
+  }
+
+  // for q-uploader
+  .q-uploader-container {
+    border-color: #0000001f;
   }
 }
 
 .body--dark {
   background: #244550;
   transition: background-color 0.3s ease-in;
+
+  // for header
   .q-layout__section--marginal {
     background: #244550;
+  }
+
+  // for q-uploader
+  .q-uploader-container {
+    border-color: #ffffff47;
   }
 }

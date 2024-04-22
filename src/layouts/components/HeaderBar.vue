@@ -55,7 +55,7 @@ export default defineComponent({
         return activeSemSY.value || '';
       })
     );
-    return { $q, ToggleLeftDrawer, selectedSY, options, changeActiveSemSY };
+    return { ToggleLeftDrawer, selectedSY, options, changeActiveSemSY };
   },
 });
 </script>

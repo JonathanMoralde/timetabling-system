@@ -27,7 +27,7 @@
           label="Import"
           dense
           class="q-px-md q-py-xs"
-          @click="console.log('clicked')"
+          to="import-courses"
         />
       </div>
     </div>

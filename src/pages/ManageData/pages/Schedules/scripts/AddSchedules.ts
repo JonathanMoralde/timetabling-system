@@ -34,9 +34,15 @@ export default defineComponent({
       'Sunday',
     ];
 
-    const selectedStartTime = ref<string>('');
-    const selectedEndTime = ref<string>('');
-    const timeOptions: string[] = ['7:00AM', '7:30AM'];
+    // const selectedStartTime = ref<string>('');
+    // const selectedEndTime = ref<string>('');
+    // const timeOptions: string[] = ['7:00AM', '7:30AM'];
+
+    const startTime = ref<string>('');
+    const endTime = ref<string>('');
+
+    // console.log(startTime.value);
+    // console.log(endTime.value);
 
     return {
       selectedInstructor,
@@ -53,11 +59,13 @@ export default defineComponent({
       blockOptions,
       selectedDay,
       dayOptions,
-      selectedStartTime,
-      selectedEndTime,
-      timeOptions,
+      // selectedStartTime,
+      // selectedEndTime,
+      // timeOptions,
       selectedType,
       typeOptions,
+      startTime,
+      endTime,
     };
   },
 });

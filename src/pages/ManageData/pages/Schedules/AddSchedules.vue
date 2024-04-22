@@ -37,7 +37,7 @@
           outline
           dense
           class="q-px-md q-py-xs"
-          @click="console.log('clicked')"
+          to="import-schedules"
         />
       </div>
     </div>
@@ -225,21 +225,30 @@
         <q-item-label class="q-py-sm"
           >Start Time <span class="text-red">*</span></q-item-label
         >
-        <q-select
-          v-model="selectedStartTime"
+        <q-input
+          placeholder="00:00 AM"
           outlined
-          :bg-color="$q.dark.isActive ? 'dark' : 'white'"
-          options-selected-class=" text-weight-medium bg-grey-4"
           dense
-          emit-value
-          map-options
-          hide-bottom-space
-          transition-show="scale"
-          transition-hide="scale"
-          :options="timeOptions"
-          :rules="[(val) => (val !== null && val !== '') || '']"
+          v-model="startTime"
+          :rules="['time']"
+          :bg-color="$q.dark.isActive ? 'dark' : 'white'"
         >
-        </q-select>
+          <template v-slot:append>
+            <q-icon name="access_time" class="cursor-pointer">
+              <q-popup-proxy
+                cover
+                transition-show="scale"
+                transition-hide="scale"
+              >
+                <q-time v-model="startTime" mask="hh:mm A">
+                  <div class="row items-center justify-end">
+                    <q-btn v-close-popup label="Close" color="primary" flat />
+                  </div>
+                </q-time>
+              </q-popup-proxy>
+            </q-icon>
+          </template>
+        </q-input>
       </div>
 
       <!-- End Time -->
@@ -247,21 +256,30 @@
         <q-item-label class="q-py-sm"
           >End Time <span class="text-red">*</span></q-item-label
         >
-        <q-select
-          v-model="selectedEndTime"
+        <q-input
+          placeholder="00:00 AM"
           outlined
-          :bg-color="$q.dark.isActive ? 'dark' : 'white'"
-          options-selected-class=" text-weight-medium bg-grey-4"
           dense
-          emit-value
-          map-options
-          hide-bottom-space
-          transition-show="scale"
-          transition-hide="scale"
-          :options="timeOptions"
-          :rules="[(val) => (val !== null && val !== '') || '']"
+          v-model="endTime"
+          :rules="['time']"
+          :bg-color="$q.dark.isActive ? 'dark' : 'white'"
         >
-        </q-select>
+          <template v-slot:append>
+            <q-icon name="access_time" class="cursor-pointer">
+              <q-popup-proxy
+                cover
+                transition-show="scale"
+                transition-hide="scale"
+              >
+                <q-time v-model="endTime" mask="hh:mm A">
+                  <div class="row items-center justify-end">
+                    <q-btn v-close-popup label="Close" color="primary" flat />
+                  </div>
+                </q-time>
+              </q-popup-proxy>
+            </q-icon>
+          </template>
+        </q-input>
       </div>
 
       <div class="row justify-center items-center">

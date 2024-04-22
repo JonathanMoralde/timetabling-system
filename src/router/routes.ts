@@ -53,6 +53,12 @@ const routes: RouteRecordRaw[] = [
               import('pages/ManageData/pages/Department/AddDepartment.vue'),
           },
           {
+            path: 'import-departments',
+            name: 'import-departments',
+            component: () =>
+              import('pages/ManageData/pages/Department/ImportDepartment.vue'),
+          },
+          {
             path: 'rooms',
             name: 'rooms',
             component: () => import('pages/ManageData/pages/Rooms/Rooms.vue'),
@@ -62,6 +68,12 @@ const routes: RouteRecordRaw[] = [
             name: 'add-rooms',
             component: () =>
               import('pages/ManageData/pages/Rooms/AddRooms.vue'),
+          },
+          {
+            path: 'import-rooms',
+            name: 'import-rooms',
+            component: () =>
+              import('pages/ManageData/pages/Rooms/ImportRooms.vue'),
           },
           {
             path: 'programs',
@@ -76,6 +88,12 @@ const routes: RouteRecordRaw[] = [
               import('pages/ManageData/pages/Programs/AddPrograms.vue'),
           },
           {
+            path: 'import-programs',
+            name: 'import-programs',
+            component: () =>
+              import('pages/ManageData/pages/Programs/ImportPrograms.vue'),
+          },
+          {
             path: 'curriculum',
             name: 'curriculum',
             component: () =>
@@ -86,6 +104,12 @@ const routes: RouteRecordRaw[] = [
             name: 'add-curriculum',
             component: () =>
               import('pages/ManageData/pages/Curriculum/AddCurriculum.vue'),
+          },
+          {
+            path: 'import-curriculum',
+            name: 'import-curriculum',
+            component: () =>
+              import('pages/ManageData/pages/Curriculum/ImportCurriculum.vue'),
           },
           {
             path: 'course-type',
@@ -100,6 +124,12 @@ const routes: RouteRecordRaw[] = [
               import('pages/ManageData/pages/CourseType/AddCourseType.vue'),
           },
           {
+            path: 'import-course-type',
+            name: 'import-course-type',
+            component: () =>
+              import('pages/ManageData/pages/CourseType/ImportCourseType.vue'),
+          },
+          {
             path: 'courses',
             name: 'courses',
             component: () =>
@@ -110,6 +140,12 @@ const routes: RouteRecordRaw[] = [
             name: 'add-courses',
             component: () =>
               import('pages/ManageData/pages/Courses/AddCourses.vue'),
+          },
+          {
+            path: 'import-courses',
+            name: 'import-courses',
+            component: () =>
+              import('pages/ManageData/pages/Courses/ImportCourses.vue'),
           },
           {
             path: 'students',
@@ -141,6 +177,12 @@ const routes: RouteRecordRaw[] = [
             component: () =>
               import('pages/ManageData/pages/Schedules/AddSchedules.vue'),
           },
+          {
+            path: 'import-schedules',
+            name: 'import-schedules',
+            component: () =>
+              import('pages/ManageData/pages/Schedules/ImportSchedules.vue'),
+          },
         ],
       },
       {
@@ -155,6 +197,12 @@ const routes: RouteRecordRaw[] = [
             component: () => import('pages/AddAccount/pages/Admin/Admin.vue'),
           },
           {
+            path: 'import-admin',
+            name: 'import-admin',
+            component: () =>
+              import('pages/AddAccount/pages/Admin/ImportAdmin.vue'),
+          },
+          {
             path: 'create-instructor/:fromManageInstructors?',
             name: 'create-instructor',
             component: () =>
@@ -162,11 +210,23 @@ const routes: RouteRecordRaw[] = [
             props: true,
           },
           {
+            path: 'import-instructor',
+            name: 'import-instructor',
+            component: () =>
+              import('pages/AddAccount/pages/Instructor/ImportInstructor.vue'),
+          },
+          {
             path: 'create-student/:fromManageStudents?',
             name: 'create-student',
             component: () =>
               import('pages/AddAccount/pages/Student/Student.vue'),
             props: true,
+          },
+          {
+            path: 'import-student',
+            name: 'import-student',
+            component: () =>
+              import('pages/AddAccount/pages/Student/ImportStudent.vue'),
           },
         ],
       },
