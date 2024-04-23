@@ -4,6 +4,9 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
+    redirect: {
+      name: 'login',
+    },
     children: [
       {
         path: 'dashboard',
@@ -259,6 +262,16 @@ const routes: RouteRecordRaw[] = [
     path: '/login',
     name: 'login',
     component: () => import('../pages/Login/Login.vue'),
+  },
+  {
+    path: '/forgot-password',
+    name: 'forgot-password',
+    component: () => import('../pages/ForgotPassword/ForgotPassword.vue'),
+  },
+  {
+    path: '/reset-password',
+    name: 'reset-password',
+    component: () => import('../pages/ForgotPassword/ResetPassword.vue'),
   },
 
   // Always leave this as last one,

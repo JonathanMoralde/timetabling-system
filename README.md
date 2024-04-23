@@ -1,41 +1,7 @@
-# timetabling-system (timetabling-system)
+# Timetabling System
 
 An automated timetabling system
 
-## Install the dependencies
-```bash
-yarn
-# or
-npm install
-```
+This is a revamped version of the previous project that I've worked on. However, this is a personal project which means I worked on it alone.
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
-```bash
-quasar dev
-```
-
-
-### Lint the files
-```bash
-yarn lint
-# or
-npm run lint
-```
-
-
-### Format the files
-```bash
-yarn format
-# or
-npm run format
-```
-
-
-
-### Build the app for production
-```bash
-quasar build
-```
-
-### Customize the configuration
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
+Furthermore, this project was build with the Quasar Framework and Typescript.

@@ -1,7 +1,9 @@
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
   setup() {
-    return {};
+    const email = ref<string>('');
+    const isRemember = ref<boolean>(false);
+    return { email, isRemember };
   },
 });

@@ -4,11 +4,20 @@ body {
   .form-width {
     width: 25%;
   }
+  .auth-form-width {
+    width: 35%;
+  }
 }
 
 .body--light {
   background: $grey-3;
   transition: background-color 0.3s ease-in;
+
+  // for login page
+  .custom-text-style {
+    -webkit-text-stroke: 1px #244550;
+    color: transparent;
+  }
 
   // for header
   .q-layout__section--marginal {
@@ -24,6 +33,12 @@ body {
 .body--dark {
   background: #244550;
   transition: background-color 0.3s ease-in;
+
+  // for login page
+  .custom-text-style {
+    -webkit-text-stroke: 1px white;
+    color: transparent;
+  }
 
   // for header
   .q-layout__section--marginal {

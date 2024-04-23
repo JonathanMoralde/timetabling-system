@@ -2,18 +2,34 @@
   <main class="flex justify-center items-center" style="min-height: 100vh">
     <section class="auth-form-width">
       <q-card flat bordered class="q-px-lg q-pb-lg full-width">
-        <h3 class="text-h4 text-bold text-center">Forgot Password?</h3>
+        <h3 class="text-h4 text-bold text-center">Reset Password</h3>
         <q-form>
-          <!-- Email -->
+          <!-- New Password -->
           <div class="q-mb-lg">
             <q-item-label class="q-py-sm"
-              >Email <span class="text-red">*</span></q-item-label
+              >New Password <span class="text-red">*</span></q-item-label
             >
             <q-input
-              v-model="email"
+              v-model="newPassword"
               dense
-              placeholder="Enter your email"
-              type="email"
+              placeholder="Enter new password"
+              type="password"
+              :rules="[(val) => (val !== null && val !== '') || '']"
+              hide-bottom-space
+              outlined
+              :bg-color="$q.dark.isActive ? 'dark' : 'white'"
+            />
+          </div>
+          <!-- Confirm Password -->
+          <div class="q-mb-lg">
+            <q-item-label class="q-py-sm"
+              >Confirm Password <span class="text-red">*</span></q-item-label
+            >
+            <q-input
+              v-model="confirmPassword"
+              dense
+              placeholder="Confirm password"
+              type="password"
               :rules="[(val) => (val !== null && val !== '') || '']"
               hide-bottom-space
               outlined
@@ -22,12 +38,6 @@
           </div>
 
           <div class="row justify-center items-center">
-            <q-btn
-              label="Cancel"
-              flat
-              @click="$router.go(-1)"
-              class="q-mr-md"
-            />
             <q-btn
               label="Reset Password"
               type="submit"
@@ -41,6 +51,6 @@
   </main>
 </template>
 
-<script lang="ts" src="./scripts/ForgotPassword.ts"></script>
+<script lang="ts" src="./scripts/ResetPassword.ts"></script>
 
 <style scoped></style>
