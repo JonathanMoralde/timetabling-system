@@ -1,71 +1,88 @@
 import { QTableProps } from 'quasar';
-import { defineComponent, ref } from 'vue';
+import { ScheduleData, fetchSchedule } from 'src/composables/Schedule';
+import { defineComponent, ref, computed, onBeforeMount } from 'vue';
 
 export default defineComponent({
   setup() {
+    onBeforeMount(() => {
+      fetchSchedule();
+    });
+
     const text = ref('');
     const selected = ref('test');
     const options = ['test', 'test2'];
 
-    const rows = ref([]);
+    const rows = computed(() => {
+      const tempData = ScheduleData.value;
+      return (
+        tempData.map((schedule) => {
+          return {
+            schedule_id: schedule.schedule_id,
+            instructor_id: schedule.instructor_id,
+            course_id: schedule.course_id,
+            room_id: schedule.room_id,
+            course_type_id: schedule.course_type_id,
+            program_id: schedule.program_id,
+            day: schedule.day,
+            time: `${schedule.start_time} - ${schedule.end_time}`,
+            school_year_semester_id: schedule.school_year_semester_id,
+            instructor_name: `${schedule.surname}, ${schedule.first_name} ${schedule.middle_name}`,
+            course: `${schedule.course_code} - ${schedule.course_name}`,
+            room_name: schedule.room_name,
+            course_type: schedule.course_type,
+            class: `${schedule.abbreviation}${schedule.year_level}${schedule.block}`,
+            school_year: schedule.school_year,
+            term: schedule.term,
+          };
+        }) || []
+      );
+    });
 
     // For table column
     let columns: QTableProps['columns'] = [
       {
-        name: 'instructor',
+        name: 'instructor_name',
         required: true,
         label: 'Instructor',
-        align: 'left',
-        field: 'instructor',
+        align: 'center',
+        field: 'instructor_name',
         sortable: true,
       },
       {
         name: 'course',
-        align: 'left',
+        align: 'center',
         label: 'Course',
         field: 'course',
       },
       {
-        name: 'room',
+        name: 'room_name',
         align: 'center',
         label: 'Room',
-        field: 'room',
+        field: 'room_name',
       },
       {
-        name: 'type',
-        align: 'right',
+        name: 'course_type',
+        align: 'center',
         label: 'Type',
-        field: 'type',
+        field: 'course_type',
         // format: (val) => `₱ ${val.toLocaleString()}`,
       },
 
       {
         name: 'class',
-        align: 'left',
+        align: 'center',
         label: 'Class',
         field: 'class',
       },
-      // {
-      //   name: 'year_level',
-      //   align: 'left',
-      //   label: 'Yr Level',
-      //   field: 'year_level',
-      // },
-      // {
-      //   name: 'block',
-      //   align: 'left',
-      //   label: 'Block',
-      //   field: 'block',
-      // },
       {
         name: 'day',
-        align: 'left',
+        align: 'center',
         label: 'Day',
         field: 'day',
       },
       {
         name: 'time',
-        align: 'left',
+        align: 'center',
         label: 'Time',
         field: 'time',
       },

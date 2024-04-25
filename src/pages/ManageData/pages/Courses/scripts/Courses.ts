@@ -1,13 +1,20 @@
 import { QTableProps } from 'quasar';
-import { defineComponent, ref } from 'vue';
+import { CourseData, fetchCourse } from 'src/composables/Course';
+import { defineComponent, ref, computed, onBeforeMount } from 'vue';
 
 export default defineComponent({
   setup() {
+    onBeforeMount(() => {
+      fetchCourse();
+    });
+
     const text = ref('');
     const selected = ref('test');
     const options = ['test', 'test2'];
 
-    const rows = ref([]);
+    const rows = computed(() => {
+      return CourseData.value || [];
+    });
 
     // For table column
     let columns: QTableProps['columns'] = [
@@ -15,7 +22,7 @@ export default defineComponent({
         name: 'course_code',
         required: true,
         label: 'Course Code',
-        align: 'left',
+        align: 'center',
         field: 'course_code',
         sortable: true,
       },
@@ -27,27 +34,27 @@ export default defineComponent({
       },
       {
         name: 'course_type',
-        align: 'left',
+        align: 'center',
         label: 'Course Type',
         field: 'course_type',
       },
       {
-        name: 'curriculum',
-        align: 'right',
+        name: 'year_effectivity',
+        align: 'center',
         label: 'Curriculum',
-        field: 'curriculum',
+        field: 'year_effectivity',
         // format: (val) => `₱ ${val.toLocaleString()}`,
       },
 
       {
         name: 'year_level',
-        align: 'left',
+        align: 'center',
         label: 'Year Level',
         field: 'year_level',
       },
       {
         name: 'semester',
-        align: 'left',
+        align: 'center',
         label: 'Semester',
         field: 'semester',
       },

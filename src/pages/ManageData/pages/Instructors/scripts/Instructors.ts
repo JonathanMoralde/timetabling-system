@@ -1,13 +1,34 @@
 import { QTableProps } from 'quasar';
-import { defineComponent, ref } from 'vue';
+import { InstructorData, fetchInstructor } from 'src/composables/Instructor';
+import { defineComponent, ref, computed, onBeforeMount } from 'vue';
 
 export default defineComponent({
   setup() {
+    onBeforeMount(() => {
+      fetchInstructor();
+    });
+
     const text = ref('');
     const selected = ref('test');
     const options = ['test', 'test2'];
 
-    const rows = ref([]);
+    const rows = computed(() => {
+      const tempData = InstructorData.value;
+
+      return (
+        tempData.map((instructor) => {
+          return {
+            instructor_id: instructor.instructor_id,
+            department_id: instructor.department_id,
+            instructor_name: `${instructor.surname}, ${instructor.first_name} ${instructor.middle_name}`,
+            academic_rank: instructor.academic_rank,
+            department_name: instructor.department_name,
+            research_status: instructor.research_status,
+            employment_status: instructor.employment_status,
+          };
+        }) || []
+      );
+    });
 
     // For table column
     let columns: QTableProps['columns'] = [
@@ -15,56 +36,56 @@ export default defineComponent({
         name: 'instructor_name',
         required: true,
         label: 'Instructor Name',
-        align: 'left',
+        align: 'center',
         field: 'instructor_name',
         sortable: true,
       },
       {
         name: 'academic_rank',
-        align: 'left',
+        align: 'center',
         label: 'Acad. Rank',
         field: 'academic_rank',
       },
       {
-        name: 'department',
+        name: 'department_name',
         align: 'center',
         label: 'Department',
-        field: 'department',
+        field: 'department_name',
       },
       {
         name: 'research_status',
-        align: 'right',
+        align: 'center',
         label: 'Research Status',
         field: 'research_status',
         // format: (val) => `₱ ${val.toLocaleString()}`,
       },
       {
-        name: 'status',
-        align: 'left',
+        name: 'employment_status',
+        align: 'center',
         label: 'Status',
-        field: 'status',
+        field: 'employment_status',
       },
       {
         name: 'consultation_schedule',
-        align: 'left',
+        align: 'center',
         label: 'Consultation Sched',
         field: 'consultation_schedule',
       },
       {
         name: 'research_hours',
-        align: 'left',
+        align: 'center',
         label: 'Research Hrs',
         field: 'research_hours',
       },
       {
         name: 'extension_services',
-        align: 'left',
+        align: 'center',
         label: 'Ext. Services',
         field: 'extension_services',
       },
       {
         name: 'quasi_teaching',
-        align: 'left',
+        align: 'center',
         label: 'Quasi Teaching',
         field: 'quasi_teaching',
       },

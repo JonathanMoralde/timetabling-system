@@ -1,13 +1,20 @@
 import { QTableProps } from 'quasar';
-import { defineComponent, ref } from 'vue';
+import { ProgramData, fetchProgram } from 'src/composables/Program';
+import { defineComponent, ref, computed, onBeforeMount } from 'vue';
 
 export default defineComponent({
   setup() {
+    onBeforeMount(() => {
+      fetchProgram();
+    });
+
     const text = ref('');
     const selected = ref('test');
     const options = ['test', 'test2'];
 
-    const rows = ref([]);
+    const rows = computed(() => {
+      return ProgramData.value || [];
+    });
 
     // For table column
     let columns: QTableProps['columns'] = [
@@ -15,21 +22,21 @@ export default defineComponent({
         name: 'program_name',
         required: true,
         label: 'Program Name',
-        align: 'left',
+        align: 'center',
         field: 'program_name',
         sortable: true,
       },
       {
         name: 'abbreviation',
-        align: 'left',
+        align: 'center',
         label: 'Abbreviation',
         field: 'abbreviation',
       },
       {
-        name: 'department',
+        name: 'department_name',
         align: 'center',
         label: 'Department',
-        field: 'department',
+        field: 'department_name',
       },
       {
         name: 'action',

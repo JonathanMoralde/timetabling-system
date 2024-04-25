@@ -252,7 +252,7 @@
       </div>
 
       <!-- End Time -->
-      <div class="q-mb-lg">
+      <div class="q-mb-md">
         <q-item-label class="q-py-sm"
           >End Time <span class="text-red">*</span></q-item-label
         >
@@ -280,6 +280,28 @@
             </q-icon>
           </template>
         </q-input>
+      </div>
+
+      <!-- School Year & Semester -->
+      <div class="q-mb-lg">
+        <q-item-label class="q-py-sm"
+          >School Year & Semester <span class="text-red">*</span></q-item-label
+        >
+        <q-select
+          v-model="selectedSYSem"
+          outlined
+          :bg-color="$q.dark.isActive ? 'dark' : 'white'"
+          options-selected-class=" text-weight-medium bg-grey-4"
+          dense
+          emit-value
+          map-options
+          hide-bottom-space
+          transition-show="scale"
+          transition-hide="scale"
+          :options="SYSemOptions"
+          :rules="[(val) => (val !== null && val !== '') || '']"
+        >
+        </q-select>
       </div>
 
       <div class="row justify-center items-center">

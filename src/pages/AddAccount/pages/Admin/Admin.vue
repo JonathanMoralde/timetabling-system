@@ -25,9 +25,7 @@
     <q-form @submit.prevent="console.log('submitted')" class="form-width">
       <!-- Department -->
       <div class="q-mb-lg">
-        <q-item-label class="q-py-sm"
-          >Department <span class="text-red">*</span></q-item-label
-        >
+        <q-item-label class="q-py-sm">Department</q-item-label>
         <q-select
           v-model="selectedDepartment"
           outlined
@@ -40,7 +38,6 @@
           transition-show="scale"
           transition-hide="scale"
           :options="departmentOptions"
-          :rules="[(val) => (val !== null && val !== '') || '']"
         >
         </q-select>
       </div>

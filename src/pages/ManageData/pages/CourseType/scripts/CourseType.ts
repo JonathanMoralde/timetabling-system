@@ -1,13 +1,20 @@
 import { QTableProps } from 'quasar';
-import { defineComponent, ref } from 'vue';
+import { CourseTypeData, fetchCourseType } from 'src/composables/CourseType';
+import { defineComponent, ref, computed, onBeforeMount } from 'vue';
 
 export default defineComponent({
   setup() {
+    onBeforeMount(() => {
+      fetchCourseType();
+    });
+
     const text = ref('');
     const selected = ref('test');
     const options = ['test', 'test2'];
 
-    const rows = ref([]);
+    const rows = computed(() => {
+      return CourseTypeData.value || [];
+    });
 
     // For table column
     let columns: QTableProps['columns'] = [
@@ -15,35 +22,35 @@ export default defineComponent({
         name: 'course_type',
         required: true,
         label: 'Course Type',
-        align: 'left',
+        align: 'center',
         field: 'course_type',
         sortable: true,
       },
       {
         name: 'duration',
-        align: 'left',
+        align: 'center',
         label: 'Duration',
         field: 'duration',
       },
       {
-        name: 'lecture_unit',
+        name: 'lec_unit',
         align: 'center',
         label: 'Lecture Unit',
-        field: 'lecture_unit',
+        field: 'lec_unit',
       },
       {
-        name: 'laboratory_unit',
-        align: 'right',
+        name: 'lab_unit',
+        align: 'center',
         label: 'Laboratory Unit',
-        field: 'laboratory_unit',
+        field: 'lab_unit',
         // format: (val) => `₱ ${val.toLocaleString()}`,
       },
 
       {
-        name: 'load unit',
-        align: 'left',
+        name: 'load_unit',
+        align: 'center',
         label: 'Load Unit',
-        field: 'load unit',
+        field: 'load_unit',
       },
       {
         name: 'action',

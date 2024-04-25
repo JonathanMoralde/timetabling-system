@@ -1,13 +1,20 @@
 import { QTableProps } from 'quasar';
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, computed, onBeforeMount } from 'vue';
+import { RoomData, fetchRoom } from 'src/composables/Room';
 
 export default defineComponent({
   setup() {
+    onBeforeMount(() => {
+      fetchRoom();
+    });
+
     const text = ref('');
     const selected = ref('test');
     const options = ['test', 'test2'];
 
-    const rows = ref([]);
+    const rows = computed(() => {
+      return RoomData.value || [];
+    });
 
     // For table column
     let columns: QTableProps['columns'] = [
@@ -15,27 +22,27 @@ export default defineComponent({
         name: 'room_name',
         required: true,
         label: 'Room Name',
-        align: 'left',
+        align: 'center',
         field: 'room_name',
         sortable: true,
       },
       {
         name: 'building_name',
-        align: 'left',
+        align: 'center',
         label: 'Building Name',
         field: 'building_name',
       },
       {
-        name: 'department',
+        name: 'department_name',
         align: 'center',
         label: 'Department',
-        field: 'department',
+        field: 'department_name',
       },
       {
-        name: 'type',
-        align: 'right',
+        name: 'room_type',
+        align: 'center',
         label: 'Type',
-        field: 'type',
+        field: 'room_type',
         // format: (val) => `₱ ${val.toLocaleString()}`,
       },
       {

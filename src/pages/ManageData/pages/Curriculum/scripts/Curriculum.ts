@@ -1,27 +1,34 @@
 import { QTableProps } from 'quasar';
-import { defineComponent, ref } from 'vue';
+import { CurriculumData, fetchCurriculum } from 'src/composables/Curriculum';
+import { defineComponent, ref, computed, onBeforeMount } from 'vue';
 
 export default defineComponent({
   setup() {
+    onBeforeMount(() => {
+      fetchCurriculum();
+    });
+
     const text = ref('');
     const selected = ref('test');
     const options = ['test', 'test2'];
 
-    const rows = ref([]);
+    const rows = computed(() => {
+      return CurriculumData.value || [];
+    });
 
     // For table column
     let columns: QTableProps['columns'] = [
       {
-        name: 'curriculum_program',
+        name: 'program_name',
         required: true,
         label: 'Curriculum Program',
-        align: 'left',
-        field: 'curriculum_program',
+        align: 'center',
+        field: 'program_name',
         sortable: true,
       },
       {
         name: 'year_effectivity',
-        align: 'left',
+        align: 'center',
         label: 'Year Effectivity',
         field: 'year_effectivity',
       },
