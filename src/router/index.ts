@@ -7,6 +7,7 @@ import {
 } from 'vue-router';
 
 import routes from './routes';
+import { checkSession } from 'src/composables/CheckSession';
 
 /*
  * If not building with SSR mode, you can
@@ -32,6 +33,24 @@ export default route(function (/* { store, ssrContext } */) {
     // quasar.conf.js -> build -> vueRouterMode
     // quasar.conf.js -> build -> publicPath
     history: createHistory(process.env.VUE_ROUTER_BASE),
+  });
+
+  // Add a beforeEach navigation guard
+  Router.beforeEach(async (to, from, next) => {
+    // Here you can implement your logic to check the user's authentication status
+    const isAuthenticated = await checkSession();
+
+    // If the user is already authenticated and is trying to access the login page,
+    // redirect them to the home page or another authenticated route
+    if (isAuthenticated && to.path === '/login') {
+      next('/');
+    } else if (to.meta.requiresAuth && !isAuthenticated) {
+      // Redirect to login if the route requires authentication and the user is not authenticated
+      next('/login');
+    } else {
+      // Allow access to other routes
+      next();
+    }
   });
 
   return Router;

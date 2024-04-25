@@ -285,7 +285,12 @@
           </q-list>
         </q-expansion-item>
 
-        <q-item clickable v-ripple active-class="text-accent active-bg">
+        <q-item
+          clickable
+          v-ripple
+          active-class="text-accent active-bg"
+          @click="handleLogout"
+        >
           <q-item-section avatar>
             <q-icon name="logout" />
           </q-item-section>
@@ -332,9 +337,12 @@
 import { computed, ref } from 'vue';
 import { LeftDrawerState } from 'src/composables/Triggers';
 import { useQuasar } from 'quasar';
+import axios from 'axios';
+import { useRouter } from 'vue-router';
 export default {
   setup() {
     const $q = useQuasar();
+    const router = useRouter();
     const isDark = computed(() => {
       return $q.dark.isActive;
     });
@@ -344,10 +352,54 @@ export default {
 
       $q.dark.toggle();
     };
+
+    const handleLogout = async () => {
+      const userData = new FormData();
+      userData.append('signout', 'true');
+      const url =
+        'http://localhost/timetable-system-backend/api/users/sign_out.php';
+      // try {
+      await axios
+        .post(url, undefined, {
+          maxBodyLength: Infinity,
+          withCredentials: true,
+        })
+        .then((response) => {
+          $q.notify({
+            type: 'postive',
+            message: response.data.message,
+            position: 'bottom',
+            color: 'positive',
+            textColor: 'accent',
+          });
+
+          router.replace({ name: 'login' });
+        })
+        .catch((error) => {
+          console.log(error);
+          $q.notify({
+            type: 'negative',
+            message: error.response.data.error,
+            position: 'bottom-right',
+            color: 'negative',
+            textColor: 'accent',
+          });
+        });
+      // } catch (error) {
+      //   console.log(error);
+      //   $q.notify({
+      //     type: 'negative',
+      //     position: 'bottom-right',
+      //     color: 'white',
+      //     textColor: 'primary',
+      //   });
+      // }
+    };
     return {
       LeftDrawerState,
       isDark,
       toggleDarkMode,
+      handleLogout,
     };
   },
 };

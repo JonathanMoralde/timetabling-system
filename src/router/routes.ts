@@ -7,6 +7,9 @@ const routes: RouteRecordRaw[] = [
     redirect: {
       name: 'login',
     },
+    meta: {
+      requiresAuth: true, // This route requires authentication
+    },
     children: [
       {
         path: 'dashboard',

@@ -45,7 +45,7 @@
         <div class="q-pr-xl auth-form-width">
           <q-card flat bordered class="q-px-lg q-pb-lg full-width q-mb-lg">
             <h3 class="text-h4 text-bold">Login</h3>
-            <q-form>
+            <q-form @submit.prevent="handleSubmit">
               <!-- Email -->
               <div class="q-mb-md">
                 <q-item-label class="q-py-sm"
@@ -69,7 +69,7 @@
                   >Password <span class="text-red">*</span></q-item-label
                 >
                 <q-input
-                  v-model="email"
+                  v-model="password"
                   dense
                   placeholder="Enter your password"
                   type="password"
