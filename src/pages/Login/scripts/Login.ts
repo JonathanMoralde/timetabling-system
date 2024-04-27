@@ -7,11 +7,14 @@ export default defineComponent({
   setup() {
     const $q = useQuasar();
     const router = useRouter();
+    const btnLoadingState = ref<boolean>(false);
     const email = ref<string>('');
     const password = ref<string>('');
     const isRemember = ref<boolean>(false);
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
+      btnLoadingState.value = true;
+
       let userData = new FormData();
       userData.append('email', email.value);
       userData.append('password', password.value);
@@ -23,7 +26,7 @@ export default defineComponent({
         'http://localhost/timetable-system-backend/api/users/sign_in.php';
 
       // try {
-      axios
+      await axios
         .post(url, userData, {
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -48,6 +51,7 @@ export default defineComponent({
             if (response.data.type === 'admin') {
               router.push({ name: 'dashboard' });
             }
+            btnLoadingState.value = false;
           }
         })
         .catch((error) => {
@@ -60,6 +64,7 @@ export default defineComponent({
             color: 'negative',
             textColor: 'accent',
           });
+          btnLoadingState.value = false;
         });
       // } catch (error) {
       //   console.log(error);
@@ -72,6 +77,6 @@ export default defineComponent({
       //   // });
       // }
     };
-    return { email, password, isRemember, handleSubmit };
+    return { email, password, isRemember, handleSubmit, btnLoadingState };
   },
 });

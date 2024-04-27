@@ -94,6 +94,7 @@
 
               <div class="row justify-center items-center">
                 <q-btn
+                  :loading="btnLoadingState"
                   label="Login"
                   type="submit"
                   :color="$q.dark.isActive ? 'white' : 'primary'"
