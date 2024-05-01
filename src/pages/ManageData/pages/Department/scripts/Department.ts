@@ -1,6 +1,10 @@
-import { QTableProps } from 'quasar';
+import { QTableProps, useQuasar } from 'quasar';
 import { defineComponent, ref, computed, onBeforeMount } from 'vue';
-import { fetchDepartment, DepartmentData } from 'src/composables/Department';
+import {
+  fetchDepartment,
+  DepartmentData,
+  deleteDepartment,
+} from 'src/composables/Department';
 
 export default defineComponent({
   setup() {
@@ -8,12 +12,23 @@ export default defineComponent({
       fetchDepartment();
     });
 
-    const text = ref('');
+    const $q = useQuasar();
+    const textSearch = ref('');
     const selected = ref('test');
     const options = ['test', 'test2'];
 
     const rows = computed(() => {
-      return DepartmentData.value || [];
+      const departments = DepartmentData.value || [];
+      const searchTerm = textSearch.value.toLowerCase();
+
+      return departments.filter((department) => {
+        const departmentName =
+          department.department_name &&
+          department.department_name.toLowerCase();
+        const dean = department.dean && department.dean.toLowerCase();
+
+        return departmentName.includes(searchTerm) || dean.includes(searchTerm);
+      });
     });
 
     // For table column
@@ -22,24 +37,51 @@ export default defineComponent({
         name: 'department_name',
         required: true,
         label: 'Department Name',
-        align: 'center',
+        align: 'left',
         field: 'department_name',
         sortable: true,
       },
       {
         name: 'dean',
-        align: 'center',
+        align: 'left',
         label: 'Dean',
         field: 'dean',
       },
       {
         name: 'action',
-        align: 'left',
+        align: 'center',
         label: '',
         field: 'action',
         style: 'width: 10%',
       },
     ];
-    return { text, selected, options, rows, columns };
+
+    // for delete
+    const handleDel = (departmentId: string) => {
+      deleteDepartment(departmentId)
+        .then((response) => {
+          $q.notify({
+            message: response.data.message,
+            position: 'bottom',
+            color: 'positive',
+            textColor: 'accent',
+          });
+
+          fetchDepartment();
+        })
+        .catch((error) => {
+          console.log(error);
+
+          $q.notify({
+            type: 'negative',
+            message: error.message,
+            position: 'bottom',
+            color: 'negative',
+            textColor: 'accent',
+          });
+        });
+    };
+
+    return { textSearch, selected, options, rows, columns, handleDel };
   },
 });

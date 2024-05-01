@@ -4,9 +4,6 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
-    redirect: {
-      name: 'login',
-    },
     meta: {
       requiresAuth: true, // This route requires authentication
     },
@@ -53,7 +50,7 @@ const routes: RouteRecordRaw[] = [
               import('pages/ManageData/pages/Department/Department.vue'),
           },
           {
-            path: 'add-departments',
+            path: 'add-departments/:departmentId?',
             name: 'add-departments',
             component: () =>
               import('pages/ManageData/pages/Department/AddDepartment.vue'),

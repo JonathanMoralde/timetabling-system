@@ -43,7 +43,7 @@ export default route(function (/* { store, ssrContext } */) {
     // If the user is already authenticated and is trying to access the login page,
     // redirect them to the home page or another authenticated route
     if (isAuthenticated && to.path === '/login') {
-      next('/');
+      next('/dashboard');
     } else if (to.meta.requiresAuth && !isAuthenticated) {
       // Redirect to login if the route requires authentication and the user is not authenticated
       next('/login');

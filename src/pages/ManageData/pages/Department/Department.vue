@@ -34,7 +34,7 @@
     <div class="row q-mb-lg">
       <q-input
         outlined
-        v-model="text"
+        v-model="textSearch"
         label="Search"
         dense
         class="col-2 q-mr-md"
@@ -42,10 +42,10 @@
       >
         <template v-slot:append>
           <q-icon
-            v-if="text !== ''"
+            v-if="textSearch !== ''"
             name="close"
             class="cursor-pointer"
-            @click="text = ''"
+            @click="textSearch = ''"
           />
           <q-icon name="search" />
         </template>
@@ -63,7 +63,63 @@
     </div>
 
     <section>
-      <q-table flat bordered :rows="rows" :columns="columns" row-key="name" />
+      <q-table
+        flat
+        bordered
+        :rows="rows"
+        :columns="columns"
+        row-key="department_id"
+      >
+        <template v-slot:body-cell-action="props">
+          <q-td :props="props">
+            <!-- Action Column -->
+            <div>
+              <q-btn
+                :color="$q.dark.isActive ? 'white' : 'black'"
+                icon="more_vert"
+                flat
+                round
+                dense
+                @click.stop
+              >
+                <q-menu
+                  flat
+                  :offset="[-5, 0]"
+                  anchor="bottom left"
+                  self="top right"
+                  class="menu-container q-py-sm"
+                >
+                  <q-list data-cy="statusOptions" class="menu q-py-xs">
+                    <!-- Edit -->
+                    <q-item
+                      clickable
+                      v-close-popup
+                      class="menu-list"
+                      @click="
+                        $router.push(
+                          `add-departments/${props.row.department_id}`
+                        )
+                      "
+                    >
+                      <q-item-section>Edit</q-item-section>
+                    </q-item>
+
+                    <!-- Delete -->
+                    <q-item
+                      clickable
+                      v-close-popup
+                      class="menu-list"
+                      @click="handleDel(props.row.department_id)"
+                    >
+                      <q-item-section>Delete</q-item-section>
+                    </q-item>
+                  </q-list>
+                </q-menu>
+              </q-btn>
+            </div>
+          </q-td>
+        </template>
+      </q-table>
     </section>
   </main>
 </template>
