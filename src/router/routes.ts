@@ -103,7 +103,7 @@ const routes: RouteRecordRaw[] = [
               import('pages/ManageData/pages/Curriculum/Curriculum.vue'),
           },
           {
-            path: 'add-curriculum',
+            path: 'add-curriculum/:curriculumId?',
             name: 'add-curriculum',
             component: () =>
               import('pages/ManageData/pages/Curriculum/AddCurriculum.vue'),

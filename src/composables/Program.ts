@@ -43,7 +43,7 @@ const insertProgram = async (
   }
 };
 
-// Fetch indiv room
+// Fetch indiv program
 const fetchIndivProgram = async (programId: string) => {
   const url = `http://localhost/timetable-system-backend/api/admin/managedata/fetch_indiv_program.php?programId=${programId}`;
 
@@ -55,7 +55,7 @@ const fetchIndivProgram = async (programId: string) => {
   }
 };
 
-// Edit indiv room data
+// Edit indiv program data
 const updateProgram = async (
   programId: string,
   programName: string,
@@ -85,7 +85,7 @@ const updateProgram = async (
   }
 };
 
-// Delete room
+// Delete program
 const deleteProgram = async (programId: string) => {
   const url =
     'http://localhost/timetable-system-backend/api/admin/managedata/delete_program.php';

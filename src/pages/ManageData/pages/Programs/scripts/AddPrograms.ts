@@ -140,6 +140,7 @@ export default defineComponent({
       departmentOptions,
       handleSubmit,
       handleEdit,
+      btnLoadingState,
     };
   },
 });

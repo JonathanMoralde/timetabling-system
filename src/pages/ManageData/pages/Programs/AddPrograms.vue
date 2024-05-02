@@ -93,6 +93,7 @@
       <div class="row justify-center items-center">
         <q-btn label="Cancel" flat @click="$router.go(-1)" class="q-mr-md" />
         <q-btn
+          :loading="btnLoadingState"
           label="Submit"
           type="submit"
           :color="$q.dark.isActive ? 'white' : 'primary'"
