@@ -34,7 +34,7 @@
     <div class="row q-mb-lg">
       <q-input
         outlined
-        v-model="text"
+        v-model="textSearch"
         label="Search"
         dense
         class="col-2 q-mr-md"
@@ -42,16 +42,16 @@
       >
         <template v-slot:append>
           <q-icon
-            v-if="text !== ''"
+            v-if="textSearch !== ''"
             name="close"
             class="cursor-pointer"
-            @click="text = ''"
+            @click="textSearch = ''"
           />
           <q-icon name="search" />
         </template>
       </q-input>
 
-      <q-select
+      <!-- <q-select
         outlined
         v-model="selected"
         :options="options"
@@ -59,7 +59,7 @@
         label="Square outlined"
         class="col-2"
         :bg-color="$q.dark.isActive ? 'dark' : 'white'"
-      />
+      /> -->
     </div>
 
     <section>

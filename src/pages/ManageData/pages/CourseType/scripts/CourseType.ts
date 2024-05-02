@@ -8,12 +8,29 @@ export default defineComponent({
       fetchCourseType();
     });
 
-    const text = ref('');
+    const textSearch = ref('');
     const selected = ref('test');
     const options = ['test', 'test2'];
 
     const rows = computed(() => {
-      return CourseTypeData.value || [];
+      const courseTypes = CourseTypeData.value || [];
+      const searchTerm = textSearch.value.toLowerCase();
+      return courseTypes.filter((courseType) => {
+        const courseTypeName =
+          courseType.course_type && courseType.course_type.toLowerCase();
+        const duration = courseType.duration.toString();
+        const lecUnit = courseType.lec_unit.toString();
+        const labUnit = courseType.lab_unit.toString();
+        const loadUnit = courseType.load_unit.toString();
+
+        return (
+          courseTypeName.includes(searchTerm) ||
+          duration.includes(searchTerm) ||
+          lecUnit.includes(searchTerm) ||
+          labUnit.includes(searchTerm) ||
+          loadUnit.includes(searchTerm)
+        );
+      });
     });
 
     // For table column
@@ -60,6 +77,6 @@ export default defineComponent({
         style: 'width: 10%',
       },
     ];
-    return { text, selected, options, rows, columns };
+    return { textSearch, selected, options, rows, columns };
   },
 });

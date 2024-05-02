@@ -1,12 +1,14 @@
-import { QTableProps } from 'quasar';
+import { QTableProps, useQuasar } from 'quasar';
 import { defineComponent, ref, computed, onBeforeMount } from 'vue';
-import { RoomData, fetchRoom } from 'src/composables/Room';
+import { RoomData, deleteRoom, fetchRoom } from 'src/composables/Room';
 
 export default defineComponent({
   setup() {
     onBeforeMount(() => {
       fetchRoom();
     });
+
+    const $q = useQuasar();
 
     const text = ref('');
     const selected = ref('test');
@@ -53,6 +55,30 @@ export default defineComponent({
         style: 'width: 10%',
       },
     ];
-    return { text, selected, options, rows, columns };
+
+    // for delete
+    const handleDel = (roomId: string) => {
+      deleteRoom(roomId)
+        .then((response) => {
+          $q.notify({
+            message: response.data.message,
+            position: 'bottom',
+            color: 'positive',
+            textColor: 'accent',
+          });
+          fetchRoom();
+        })
+        .catch((error) => {
+          console.log(error);
+          $q.notify({
+            type: 'negative',
+            message: error.message,
+            position: 'bottom',
+            color: 'negative',
+            textColor: 'accent',
+          });
+        });
+    };
+    return { text, selected, options, rows, columns, handleDel };
   },
 });

@@ -67,7 +67,7 @@ const routes: RouteRecordRaw[] = [
             component: () => import('pages/ManageData/pages/Rooms/Rooms.vue'),
           },
           {
-            path: 'add-rooms',
+            path: 'add-rooms/:roomId?',
             name: 'add-rooms',
             component: () =>
               import('pages/ManageData/pages/Rooms/AddRooms.vue'),
