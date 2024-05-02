@@ -30,6 +30,7 @@ export interface Curriculum {
   program_id: number;
   program_name: string;
   year_effectivity: string;
+  abbreviation: string;
 }
 
 // FOR MANAGE DATA - COURSE TYPE
@@ -53,6 +54,8 @@ export interface Course {
   course_type: string;
   curriculum_id: number;
   year_effectivity: number;
+  program_id: number;
+  abbreviation: string;
 }
 
 // FOR MANAGE DATA- STUDENT
