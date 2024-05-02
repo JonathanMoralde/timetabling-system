@@ -56,7 +56,7 @@
         </template>
       </q-input>
 
-      <q-select
+      <!-- <q-select
         outlined
         v-model="selected"
         :options="options"
@@ -64,11 +64,73 @@
         label="Square outlined"
         class="col-2"
         :bg-color="$q.dark.isActive ? 'dark' : 'white'"
-      />
+      /> -->
     </div>
 
     <section>
-      <q-table flat bordered :rows="rows" :columns="columns" row-key="name" />
+      <q-table
+        flat
+        bordered
+        :rows="rows"
+        :columns="columns"
+        row-key="student_id"
+      >
+        <template v-slot:body-cell-action="props">
+          <q-td :props="props">
+            <!-- Action Column -->
+            <div>
+              <q-btn
+                :color="$q.dark.isActive ? 'white' : 'black'"
+                icon="more_vert"
+                flat
+                round
+                dense
+                @click.stop
+              >
+                <q-menu
+                  flat
+                  :offset="[-5, 0]"
+                  anchor="bottom left"
+                  self="top right"
+                  class="menu-container q-py-sm"
+                >
+                  <q-list data-cy="statusOptions" class="menu q-py-xs">
+                    <!-- Edit -->
+                    <q-item
+                      clickable
+                      v-close-popup
+                      class="menu-list"
+                      @click="
+                        $router.push({
+                          name: 'create-student',
+                          params: {
+                            fromManageStudents: 'true',
+                            studentId: props.row.student_id,
+                          },
+                        })
+                      "
+                    >
+                      <q-item-section>Edit</q-item-section>
+                    </q-item>
+
+                    <!-- Delete -->
+                    <q-item
+                      clickable
+                      v-close-popup
+                      class="menu-list"
+                      @click="
+                        handleDel(props.row.student_id, props.row.user_id)
+                      "
+                    >
+                      <q-item-section>Delete</q-item-section>
+                    </q-item>
+                  </q-list>
+                </q-menu>
+              </q-btn>
+            </div>
+          </q-td>
+        </template>
+      </q-table>
     </section>
   </main>
 </template>

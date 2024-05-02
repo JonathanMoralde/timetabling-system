@@ -61,11 +61,13 @@ export interface Course {
 // FOR MANAGE DATA- STUDENT
 
 export interface Student {
+  user_id: number;
   student_id: number;
-  school_id: number;
+  school_id: string;
   surname: string;
   first_name: string;
   middle_name: string;
+  program_id: number;
   program_name: string;
   year_level: number;
   block: string;

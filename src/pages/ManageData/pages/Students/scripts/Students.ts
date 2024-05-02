@@ -1,6 +1,10 @@
 import { log } from 'console';
-import { QTableProps } from 'quasar';
-import { StudentData, fetchStudent } from 'src/composables/Student';
+import { QTableProps, useQuasar } from 'quasar';
+import {
+  StudentData,
+  deleteStudent,
+  fetchStudent,
+} from 'src/composables/Student';
 import { defineComponent, ref, computed, onBeforeMount } from 'vue';
 
 export default defineComponent({
@@ -9,17 +13,21 @@ export default defineComponent({
       fetchStudent();
     });
 
+    const $q = useQuasar();
+
     const text = ref('');
     const selected = ref('test');
     const options = ['test', 'test2'];
 
     const rows = computed(() => {
-      const tempData = StudentData.value;
-      return (
-        tempData.map((student) => {
+      const tempData = StudentData.value || [];
+      const searchTerm = text.value.toLowerCase();
+      return tempData
+        .map((student) => {
           console.log(student);
 
           return {
+            user_id: student.user_id,
             student_id: student.student_id,
             school_id: student.school_id,
             student_name: `${student.surname}, ${student.first_name} ${student.middle_name}`,
@@ -27,8 +35,22 @@ export default defineComponent({
             year_level: student.year_level,
             block: student.block,
           };
-        }) || []
-      );
+        })
+        .filter((s) => {
+          const schoolId = s.school_id && s.school_id.toLowerCase();
+          const studentName = s.student_name && s.student_name.toLowerCase();
+          const programName = s.program_name && s.program_name.toLowerCase();
+          const yearLevel = s.year_level.toString();
+          const block = s.block.toLowerCase();
+
+          return (
+            schoolId.includes(searchTerm) ||
+            studentName.includes(searchTerm) ||
+            programName.includes(searchTerm) ||
+            yearLevel.includes(searchTerm) ||
+            block.includes(searchTerm)
+          );
+        });
     });
 
     // For table column
@@ -37,19 +59,19 @@ export default defineComponent({
         name: 'school_id',
         required: true,
         label: 'Student ID',
-        align: 'center',
+        align: 'left',
         field: 'school_id',
         sortable: true,
       },
       {
         name: 'student_name',
-        align: 'center',
+        align: 'left',
         label: 'Student Name',
         field: 'student_name',
       },
       {
         name: 'program_name',
-        align: 'center',
+        align: 'left',
         label: 'Program',
         field: 'program_name',
       },
@@ -69,12 +91,38 @@ export default defineComponent({
       },
       {
         name: 'action',
-        align: 'left',
+        align: 'center',
         label: '',
         field: 'action',
         style: 'width: 10%',
       },
     ];
-    return { text, selected, options, rows, columns };
+
+    const handleDel = (studentId: string, userId: string) => {
+      deleteStudent(studentId, userId)
+        .then((response) => {
+          console.log(response);
+          $q.notify({
+            message: response.data.message,
+            position: 'bottom',
+            color: 'positive',
+            textColor: 'accent',
+          });
+
+          fetchStudent();
+        })
+        .catch((error) => {
+          console.log(error);
+
+          $q.notify({
+            type: 'negative',
+            message: error.message,
+            position: 'bottom',
+            color: 'negative',
+            textColor: 'accent',
+          });
+        });
+    };
+    return { text, selected, options, rows, columns, handleDel };
   },
 });

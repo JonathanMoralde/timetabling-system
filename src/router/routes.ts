@@ -219,7 +219,7 @@ const routes: RouteRecordRaw[] = [
               import('pages/AddAccount/pages/Instructor/ImportInstructor.vue'),
           },
           {
-            path: 'create-student/:fromManageStudents?',
+            path: 'create-student/:fromManageStudents?/:studentId?',
             name: 'create-student',
             component: () =>
               import('pages/AddAccount/pages/Student/Student.vue'),
