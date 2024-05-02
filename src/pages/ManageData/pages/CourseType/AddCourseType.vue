@@ -15,11 +15,13 @@
           class="q-mr-sm"
         />
         <h3 class="text-h5 q-ma-none text-bold" style="font-size: 2rem">
-          Add Course Type
+          {{
+            $route.params.courseTypeId ? 'Edit Course Type' : 'Add Course Types'
+          }}
         </h3>
       </div>
 
-      <div>
+      <div v-show="!$route.params.courseTypeId">
         <!-- import btn -->
         <q-btn
           :color="$q.dark.isActive ? 'white' : 'primary'"
@@ -33,7 +35,12 @@
     </div>
 
     <!-- form -->
-    <q-form @submit.prevent="console.log('submitted')" class="form-width">
+    <q-form
+      @submit.prevent="
+        $route.params.courseTypeId ? handleEdit() : handleSubmit()
+      "
+      class="form-width"
+    >
       <!-- Course Type -->
       <div class="q-mb-lg">
         <q-item-label class="q-py-sm"
@@ -147,6 +154,7 @@
       <div class="row justify-center items-center">
         <q-btn label="Cancel" flat @click="$router.go(-1)" class="q-mr-md" />
         <q-btn
+          :loading="btnLoadingState"
           label="Submit"
           type="submit"
           :color="$q.dark.isActive ? 'white' : 'primary'"

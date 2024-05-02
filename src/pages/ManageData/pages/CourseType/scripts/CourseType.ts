@@ -1,5 +1,9 @@
-import { QTableProps } from 'quasar';
-import { CourseTypeData, fetchCourseType } from 'src/composables/CourseType';
+import { QTableProps, useQuasar } from 'quasar';
+import {
+  CourseTypeData,
+  deleteCourseType,
+  fetchCourseType,
+} from 'src/composables/CourseType';
 import { defineComponent, ref, computed, onBeforeMount } from 'vue';
 
 export default defineComponent({
@@ -7,6 +11,8 @@ export default defineComponent({
     onBeforeMount(() => {
       fetchCourseType();
     });
+
+    const $q = useQuasar();
 
     const textSearch = ref('');
     const selected = ref('test');
@@ -39,25 +45,25 @@ export default defineComponent({
         name: 'course_type',
         required: true,
         label: 'Course Type',
-        align: 'center',
+        align: 'left',
         field: 'course_type',
         sortable: true,
       },
       {
         name: 'duration',
-        align: 'center',
+        align: 'left',
         label: 'Duration',
         field: 'duration',
       },
       {
         name: 'lec_unit',
-        align: 'center',
+        align: 'left',
         label: 'Lecture Unit',
         field: 'lec_unit',
       },
       {
         name: 'lab_unit',
-        align: 'center',
+        align: 'left',
         label: 'Laboratory Unit',
         field: 'lab_unit',
         // format: (val) => `₱ ${val.toLocaleString()}`,
@@ -65,18 +71,47 @@ export default defineComponent({
 
       {
         name: 'load_unit',
-        align: 'center',
+        align: 'left',
         label: 'Load Unit',
         field: 'load_unit',
       },
       {
         name: 'action',
-        align: 'left',
+        align: 'center',
         label: '',
         field: 'action',
         style: 'width: 10%',
       },
     ];
-    return { textSearch, selected, options, rows, columns };
+
+    const handleDel = (courseTypeId: string) => {
+      try {
+        deleteCourseType(courseTypeId)
+          .then((response) => {
+            $q.notify({
+              message: response.data.message,
+              position: 'bottom',
+              color: 'positive',
+              textColor: 'accent',
+            });
+
+            fetchCourseType();
+          })
+          .catch((error) => {
+            console.log(error);
+
+            $q.notify({
+              type: 'negative',
+              message: error.message,
+              position: 'bottom',
+              color: 'negative',
+              textColor: 'accent',
+            });
+          });
+      } catch (error) {
+        throw error;
+      }
+    };
+    return { textSearch, selected, options, rows, columns, handleDel };
   },
 });

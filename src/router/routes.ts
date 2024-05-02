@@ -121,7 +121,7 @@ const routes: RouteRecordRaw[] = [
               import('pages/ManageData/pages/CourseType/CourseType.vue'),
           },
           {
-            path: 'add-course-type',
+            path: 'add-course-type/:courseTypeId?',
             name: 'add-course-type',
             component: () =>
               import('pages/ManageData/pages/CourseType/AddCourseType.vue'),
