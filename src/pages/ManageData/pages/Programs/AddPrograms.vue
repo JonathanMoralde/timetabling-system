@@ -15,11 +15,11 @@
           class="q-mr-sm"
         />
         <h3 class="text-h5 q-ma-none text-bold" style="font-size: 2rem">
-          Add Programs
+          {{ $route.params.programId ? 'Edit Program' : 'Add Programs' }}
         </h3>
       </div>
 
-      <div>
+      <div v-show="!$route.params.programId">
         <!-- import btn -->
         <q-btn
           :color="$q.dark.isActive ? 'white' : 'primary'"
@@ -33,7 +33,10 @@
     </div>
 
     <!-- form -->
-    <q-form @submit.prevent="console.log('submitted')" class="form-width">
+    <q-form
+      @submit.prevent="$route.params.programId ? handleEdit() : handleSubmit()"
+      class="form-width"
+    >
       <!-- Program's Name -->
       <div class="q-mb-md">
         <q-item-label class="q-py-sm"

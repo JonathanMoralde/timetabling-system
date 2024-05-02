@@ -18,11 +18,7 @@ export default defineComponent({
 
         fetchIndivRoom(id).then((response) => {
           console.log(response);
-          selectedDepartment.value = {
-            label: response.data[0].department_name,
-            value: response.data[0].department_id,
-            description: response.data[0].department_name,
-          };
+          selectedDepartment.value = response.data[0].department_id;
           buildingName.value = response.data[0].building_name;
           roomName.value = response.data[0].room_name;
           selectedType.value = response.data[0].room_type;
@@ -35,11 +31,7 @@ export default defineComponent({
     const router = useRouter();
     const btnLoadingState = ref<boolean>(false);
 
-    const selectedDepartment = ref<{
-      label: string;
-      value: number;
-      description: string;
-    } | null>(null);
+    const selectedDepartment = ref<number | null>(null);
     const departmentOptions = computed(() => {
       const tempData = DepartmentData.value.map((department) => {
         return {
@@ -60,15 +52,6 @@ export default defineComponent({
 
     const handleSubmit = () => {
       btnLoadingState.value = true;
-      // if (selectedDepartment.value.value === 0 || !selectedType.value) {
-      //   return;
-      // }
-      console.log(
-        selectedDepartment.value!,
-        buildingName.value,
-        roomName.value,
-        selectedType.value
-      );
       insertRoom(
         selectedDepartment.value!.toString(),
         buildingName.value,
@@ -115,7 +98,7 @@ export default defineComponent({
       try {
         updateRoom(
           id,
-          selectedDepartment.value!.value.toString(),
+          selectedDepartment.value!.toString(),
           buildingName.value,
           roomName.value,
           selectedType.value

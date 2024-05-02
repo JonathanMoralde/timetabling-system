@@ -85,7 +85,7 @@ const routes: RouteRecordRaw[] = [
               import('pages/ManageData/pages/Programs/Programs.vue'),
           },
           {
-            path: 'add-programs',
+            path: 'add-programs/:programId?',
             name: 'add-programs',
             component: () =>
               import('pages/ManageData/pages/Programs/AddPrograms.vue'),

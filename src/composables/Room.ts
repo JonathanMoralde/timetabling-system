@@ -57,7 +57,7 @@ const fetchIndivRoom = async (roomId: string) => {
   }
 };
 
-// Edit indiv department data
+// Edit indiv room data
 const updateRoom = async (
   roomId: string,
   departmentId: string,
@@ -89,7 +89,7 @@ const updateRoom = async (
   }
 };
 
-// Delete department
+// Delete room
 const deleteRoom = async (roomId: string) => {
   const url =
     'http://localhost/timetable-system-backend/api/admin/managedata/delete_room.php';
