@@ -16,11 +16,15 @@
           class="q-mr-sm"
         />
         <h3 class="text-h5 q-ma-none text-bold" style="font-size: 2rem">
-          Create Instructor Account
+          {{
+            $route.params.instructorId
+              ? 'Edit Instructor'
+              : 'Create Instructor Accounts'
+          }}
         </h3>
       </div>
 
-      <div>
+      <div v-show="!$route.params.instructorId">
         <!-- import btn -->
         <q-btn
           :color="$q.dark.isActive ? 'white' : 'primary'"
@@ -34,7 +38,12 @@
     </div>
 
     <!-- form -->
-    <q-form @submit.prevent="console.log('submitted')" class="form-width">
+    <q-form
+      @submit.prevent="
+        $route.params.instructorId ? handleEdit() : handleSubmit()
+      "
+      class="form-width"
+    >
       <!-- Employee/School ID -->
       <div class="q-mb-md">
         <q-item-label class="q-py-sm"
@@ -195,7 +204,7 @@
       </div>
 
       <!-- Email -->
-      <div class="q-mb-md">
+      <div class="q-mb-md" v-if="!$route.params.instructorId">
         <q-item-label class="q-py-sm"
           >Email <span class="text-red">*</span></q-item-label
         >
@@ -212,7 +221,7 @@
       </div>
 
       <!-- Password -->
-      <div class="q-mb-md">
+      <div class="q-mb-md" v-if="!$route.params.instructorId">
         <q-item-label class="q-py-sm"
           >Password <span class="text-red">*</span></q-item-label
         >
@@ -229,7 +238,7 @@
       </div>
 
       <!-- Confirm Password -->
-      <div class="q-mb-lg">
+      <div class="q-mb-lg" v-if="!$route.params.instructorId">
         <q-item-label class="q-py-sm"
           >Confirm Password <span class="text-red">*</span></q-item-label
         >
@@ -246,8 +255,15 @@
       </div>
 
       <div class="row justify-center items-center">
-        <q-btn label="Cancel" flat @click="$router.go(-1)" class="q-mr-md" />
         <q-btn
+          label="Cancel"
+          flat
+          @click="$router.go(-1)"
+          class="q-mr-md"
+          v-show="$route.params.fromManageInstructors"
+        />
+        <q-btn
+          :loading="btnLoadingState"
           label="Submit"
           type="submit"
           :color="$q.dark.isActive ? 'white' : 'primary'"
@@ -260,8 +276,4 @@
 
 <script lang="ts" src="./scripts/Instructor.ts"></script>
 
-<style scoped>
-.form-width {
-  width: 25%;
-}
-</style>
+<style scoped></style>

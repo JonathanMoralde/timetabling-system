@@ -175,7 +175,7 @@ const routes: RouteRecordRaw[] = [
               import('pages/ManageData/pages/Schedules/Schedules.vue'),
           },
           {
-            path: 'add-schedules',
+            path: 'add-schedules/:scheduleId?',
             name: 'add-schedules',
             component: () =>
               import('pages/ManageData/pages/Schedules/AddSchedules.vue'),
@@ -206,7 +206,7 @@ const routes: RouteRecordRaw[] = [
               import('pages/AddAccount/pages/Admin/ImportAdmin.vue'),
           },
           {
-            path: 'create-instructor/:fromManageInstructors?',
+            path: 'create-instructor/:fromManageInstructors?/:instructorId?',
             name: 'create-instructor',
             component: () =>
               import('pages/AddAccount/pages/Instructor/Instructor.vue'),

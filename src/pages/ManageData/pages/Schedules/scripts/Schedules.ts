@@ -1,4 +1,5 @@
-import { QTableProps } from 'quasar';
+import { RefSymbol } from '@vue/reactivity';
+import { QTableProps, useQuasar } from 'quasar';
 import { ScheduleData, fetchSchedule } from 'src/composables/Schedule';
 import { defineComponent, ref, computed, onBeforeMount } from 'vue';
 
@@ -8,14 +9,17 @@ export default defineComponent({
       fetchSchedule();
     });
 
+    const $q = useQuasar();
+
     const text = ref('');
     const selected = ref('test');
     const options = ['test', 'test2'];
 
     const rows = computed(() => {
-      const tempData = ScheduleData.value;
-      return (
-        tempData.map((schedule) => {
+      const tempData = ScheduleData.value || [];
+      const searchTerm = text.value.toLowerCase();
+      return tempData
+        .map((schedule) => {
           return {
             schedule_id: schedule.schedule_id,
             instructor_id: schedule.instructor_id,
@@ -34,8 +38,28 @@ export default defineComponent({
             school_year: schedule.school_year,
             term: schedule.term,
           };
-        }) || []
-      );
+        })
+        .filter((sched) => {
+          const instructorName =
+            sched.instructor_name && sched.instructor_name.toLowerCase();
+          const course = sched.course && sched.course.toLowerCase();
+          const roomName = sched.room_name && sched.room_name.toLowerCase();
+          const courseType =
+            sched.course_type && sched.course_type.toLowerCase();
+          const className = sched.class && sched.class.toLowerCase();
+          const day = sched.day && sched.day.toLowerCase();
+          const time = sched.time && sched.time.toLowerCase();
+
+          return (
+            instructorName.includes(searchTerm) ||
+            course.includes(searchTerm) ||
+            roomName.includes(searchTerm) ||
+            courseType.includes(searchTerm) ||
+            className.includes(searchTerm) ||
+            day.includes(searchTerm) ||
+            time.includes(searchTerm)
+          );
+        });
     });
 
     // For table column
@@ -94,6 +118,8 @@ export default defineComponent({
         style: 'width: 10%',
       },
     ];
-    return { text, selected, options, rows, columns };
+
+    const handleDel = (scheduleId: string) => {};
+    return { text, selected, options, rows, columns, handleDel };
   },
 });

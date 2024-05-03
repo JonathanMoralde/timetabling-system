@@ -2,6 +2,7 @@
 
 An automated timetabling system
 
-This is a revamped version of the previous project that I've worked on. However, this is a personal project which means I worked on it alone.
+This is a revamped version of the previous project that I've worked on.
+This is a personal project.
 
-Furthermore, this project was build with the Quasar Framework and Typescript.
+Furthermore, this project was built with the Quasar Framework and Typescript.
