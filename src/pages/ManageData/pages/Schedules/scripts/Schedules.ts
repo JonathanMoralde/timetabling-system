@@ -1,6 +1,10 @@
 import { RefSymbol } from '@vue/reactivity';
 import { QTableProps, useQuasar } from 'quasar';
-import { ScheduleData, fetchSchedule } from 'src/composables/Schedule';
+import {
+  ScheduleData,
+  deleteSchedule,
+  fetchSchedule,
+} from 'src/composables/Schedule';
 import { defineComponent, ref, computed, onBeforeMount } from 'vue';
 
 export default defineComponent({
@@ -119,7 +123,32 @@ export default defineComponent({
       },
     ];
 
-    const handleDel = (scheduleId: string) => {};
+    const handleDel = (scheduleId: string) => {
+      try {
+        deleteSchedule(scheduleId)
+          .then((response) => {
+            $q.notify({
+              message: response.data.message,
+              position: 'bottom',
+              color: 'positive',
+              textColor: 'accent',
+            });
+            fetchSchedule();
+          })
+          .catch((error) => {
+            console.log(error);
+            $q.notify({
+              type: 'negative',
+              message: error.message,
+              position: 'bottom',
+              color: 'negative',
+              textColor: 'accent',
+            });
+          });
+      } catch (error) {
+        throw error;
+      }
+    };
     return { text, selected, options, rows, columns, handleDel };
   },
 });

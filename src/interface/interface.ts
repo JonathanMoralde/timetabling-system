@@ -1,3 +1,11 @@
+// FOR SY SEM
+export interface SYSem {
+  school_year_semester_id: number;
+  school_year: string;
+  term: number;
+  status: string;
+}
+
 // FOR MANAGE DATA - DEPARTMENT
 export interface Department {
   department_id: number;

@@ -15,11 +15,11 @@
           class="q-mr-sm"
         />
         <h3 class="text-h5 q-ma-none text-bold" style="font-size: 2rem">
-          Add Schedules
+          {{ $route.params.scheduleId ? 'Edit Schedule' : 'Add Schedules' }}
         </h3>
       </div>
 
-      <div>
+      <div v-show="!$route.params.scheduleId">
         <!-- Automate btn -->
         <q-btn
           :color="$q.dark.isActive ? 'white' : 'primary'"
@@ -43,7 +43,10 @@
     </div>
 
     <!-- form -->
-    <q-form @submit.prevent="console.log('submitted')" class="form-width">
+    <q-form
+      @submit.prevent="$route.params.scheduleId ? handleEdit() : handleSubmit()"
+      class="form-width"
+    >
       <!-- Instructor -->
       <div class="q-mb-md">
         <q-item-label class="q-py-sm"
@@ -230,7 +233,6 @@
           outlined
           dense
           v-model="startTime"
-          :rules="['time']"
           :bg-color="$q.dark.isActive ? 'dark' : 'white'"
         >
           <template v-slot:append>
@@ -261,7 +263,6 @@
           outlined
           dense
           v-model="endTime"
-          :rules="['time']"
           :bg-color="$q.dark.isActive ? 'dark' : 'white'"
         >
           <template v-slot:append>
@@ -283,7 +284,7 @@
       </div>
 
       <!-- School Year & Semester -->
-      <div class="q-mb-lg">
+      <!-- <div class="q-mb-lg">
         <q-item-label class="q-py-sm"
           >School Year & Semester <span class="text-red">*</span></q-item-label
         >
@@ -302,11 +303,12 @@
           :rules="[(val) => (val !== null && val !== '') || '']"
         >
         </q-select>
-      </div>
+      </div> -->
 
       <div class="row justify-center items-center">
         <q-btn label="Cancel" flat @click="$router.go(-1)" class="q-mr-md" />
         <q-btn
+          :loading="btnLoadingState"
           label="Submit"
           type="submit"
           :color="$q.dark.isActive ? 'white' : 'primary'"
