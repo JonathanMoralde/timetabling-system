@@ -10,12 +10,10 @@
     </div>
 
     <!-- form -->
-    <q-form @submit.prevent="console.log('submitted')" class="form-width">
+    <q-form @submit.prevent="handleSubmit" class="form-width">
       <!-- Department -->
       <div class="q-mb-lg">
-        <q-item-label class="q-py-sm"
-          >Department <span class="text-red">*</span></q-item-label
-        >
+        <q-item-label class="q-py-sm">Department</q-item-label>
         <q-select
           v-model="selectedDepartment"
           outlined
@@ -28,7 +26,6 @@
           transition-show="scale"
           transition-hide="scale"
           :options="departmentOptions"
-          :rules="[(val) => (val !== null && val !== '') || '']"
         >
         </q-select>
       </div>
@@ -111,16 +108,13 @@
 
       <!-- Email -->
       <div class="q-mb-lg">
-        <q-item-label class="q-py-sm"
-          >Email <span class="text-red">*</span></q-item-label
-        >
+        <q-item-label class="q-py-sm">Email</q-item-label>
         <q-input
           v-model="email"
           type="email"
           dense
           placeholder="Email"
           hide-bottom-space
-          :rules="[(val) => (val !== null && val !== '') || '']"
           outlined
           :bg-color="$q.dark.isActive ? 'dark' : 'white'"
         />
@@ -128,6 +122,7 @@
 
       <div class="row justify-center items-center">
         <q-btn
+          :loading="btnLoadingState"
           label="Submit"
           type="submit"
           :color="$q.dark.isActive ? 'white' : 'primary'"

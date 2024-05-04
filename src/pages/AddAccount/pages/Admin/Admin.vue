@@ -22,7 +22,7 @@
     </div>
 
     <!-- form -->
-    <q-form @submit.prevent="console.log('submitted')" class="form-width">
+    <q-form @submit.prevent="handleSubmit" class="form-width">
       <!-- Department -->
       <div class="q-mb-lg">
         <q-item-label class="q-py-sm">Department</q-item-label>
@@ -170,8 +170,9 @@
       </div>
 
       <div class="row justify-center items-center">
-        <q-btn label="Cancel" flat @click="$router.go(-1)" class="q-mr-md" />
+        <!-- <q-btn label="Cancel" flat @click="$router.go(-1)" class="q-mr-md" /> -->
         <q-btn
+          :loading="btnLoadingState"
           label="Submit"
           type="submit"
           :color="$q.dark.isActive ? 'white' : 'primary'"

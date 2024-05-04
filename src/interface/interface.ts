@@ -122,3 +122,16 @@ export interface Schedule {
   school_year: string;
   term: number;
 }
+
+// FOR ADMIN DETAILS
+export interface Admin {
+  user_id: number;
+  department_id: number | null;
+  position: string | null;
+  title: string | null;
+  first_name: string;
+  middle_name: string;
+  surname: string;
+  profile_pic: string;
+  email: string;
+}
