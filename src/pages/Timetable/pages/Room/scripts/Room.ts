@@ -1,74 +1,48 @@
-import { QTableColumn } from 'quasar';
-import { defineComponent, ref, onMounted, computed } from 'vue';
+import { QTableColumn, useQuasar } from 'quasar';
+import { InstructorData, fetchInstructor } from 'src/composables/Instructor';
+import { defineComponent, ref, onBeforeMount, computed } from 'vue';
+import { ScheduleData, SetSchedule } from 'src/composables/Schedule';
+import {
+  fetchInstructorSched,
+  times,
+  daysOfWeek,
+  spanTrack,
+  calculateRowspan,
+  checkSpanTrack,
+  checkColor,
+  resetSpanTrack,
+  fetchRoomSched,
+} from 'src/composables/Timetable';
+import { RoomData, fetchRoom } from 'src/composables/Room';
 
 export default defineComponent({
   setup() {
+    onBeforeMount(() => {
+      fetchRoom();
+      SetSchedule.value = [];
+      resetSpanTrack();
+    });
+
+    const $q = useQuasar();
+
     const text = ref<string>('');
-    const selected = ref<string>('test');
-    const options = ['test', 'test2'];
+    const selectedRoom = ref<number | null>();
+    const roomOptions = computed(() => {
+      const tempData = RoomData.value || [];
 
-    const times: string[] = [
-      '7:00AM-7:30AM',
-      '7:30AM-8:00AM',
-      '8:00AM-8:30AM',
-      '8:30AM-9:00AM',
-      '9:00AM-9:30AM',
-      '9:30AM-10:00AM',
-      '10:00AM-10:30AM',
-      '10:30AM-11:00AM',
-      '11:00AM-11:30AM',
-      '11:30AM-12:00PM',
-      '12:00PM-12:30PM',
-      '12:30PM-1:00PM',
-      '1:00PM-1:30PM',
-      '1:30PM-2:00PM',
-      '2:00PM-2:30PM',
-      '2:30PM-3:00PM',
-      '3:00PM-3:30PM',
-      '3:30PM-4:00PM',
-      '4:00PM-4:30PM',
-      '4:30PM-5:00PM',
-      '5:00PM-5:30PM',
-      '5:30PM-6:00PM',
-      '6:00PM-6:30PM',
-      '6:30PM-7:00PM',
-      '7:00PM-7:30PM',
-      '7:30PM-8:00PM',
-    ];
-
-    const daysOfWeek: string[] = [
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-      'Sunday',
-    ];
-
-    const rows = computed(() => {
-      const tempData: any[] = [];
-      times.forEach((time) => {
-        tempData.push({
-          time_slot: time,
-          Monday: '',
-          Tuesday: '',
-          Wednesday: '',
-          Thursday: '',
-          Friday: '',
-          Saturday: '',
-          Sunday: '',
-        });
+      return tempData.map((room) => {
+        return {
+          label: `${room.room_name} -  ${room.building_name}`,
+          value: room.room_id,
+          description: `${room.room_name} -  ${room.building_name}`,
+        };
       });
-      console.log(tempData);
-
-      return tempData;
     });
 
     const columns: QTableColumn[] = [
       {
         name: 'timeSlot',
-        label: 'Time Slot',
+        label: 'Time',
         field: 'time_slot',
         align: 'center',
       },
@@ -82,12 +56,75 @@ export default defineComponent({
       ),
     ];
 
+    const displaySched = (time: string, day: string) => {
+      let scheduleContent = ''; // Initialize an empty string to accumulate HTML content
+      const startTime = time.split(' - ')[0];
+
+      if (ScheduleData.value) {
+        console.log(ScheduleData.value);
+        ScheduleData.value.forEach((sched) => {
+          if (sched.start_time === startTime && sched.day === day) {
+            scheduleContent += `
+              <p class='q-mb-none'>${sched.course_code} (${sched.course_type})</p>
+              <p class='q-mb-none'>${sched.abbreviation} - ${sched.year_level}${sched.block}</p>
+              <p class='q-mb-none'>${sched.surname}, ${sched.first_name} ${sched.middle_name[0]}.</p>
+            `;
+          }
+        });
+      }
+
+      return scheduleContent; // Return the accumulated HTML content
+    };
+
+    const handleUpdate = (value: string) => {
+      // Start notif loading here
+      // notif;
+      $q.notify({
+        type: 'ongoing',
+        group: 'loading',
+        timeout: 1000, // we want to be in control when it gets dismissed
+        spinner: true,
+        message: 'Fetching Schedule...',
+        textColor: 'accent',
+      });
+
+      fetchRoomSched(value)
+        .then(() => {
+          // End notif loading after successful fetch
+          $q.notify({
+            // group: 'loading',
+            icon: 'done', // we add an icon
+            spinner: false, // we reset the spinner setting so the icon can be displayed
+            message: 'Fetching done!',
+            color: 'positive',
+            timeout: 2500, // we will timeout it in 2.5s
+          });
+        })
+        .catch((error) => {
+          $q.notify({
+            type: 'negative',
+            message: error.message,
+            position: 'bottom',
+            color: 'negative',
+            textColor: 'accent',
+          });
+        });
+    };
     return {
+      times,
+      daysOfWeek,
       text,
-      selected,
-      options,
+      selectedRoom,
+      roomOptions,
       columns,
-      rows,
+      fetchInstructorSched,
+      spanTrack,
+      calculateRowspan,
+      ScheduleData,
+      displaySched,
+      checkSpanTrack,
+      checkColor,
+      handleUpdate,
     };
   },
 });

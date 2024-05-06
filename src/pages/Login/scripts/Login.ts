@@ -35,6 +35,7 @@ export default defineComponent({
           withCredentials: true,
         })
         .then((response) => {
+          console.log(response);
           if (
             response.status === 200 &&
             response.data &&
@@ -49,7 +50,7 @@ export default defineComponent({
             });
 
             if (response.data.type === 'admin') {
-              router.push({ name: 'dashboard' });
+              router.push({ name: 'subject-load' });
             }
             btnLoadingState.value = false;
           }

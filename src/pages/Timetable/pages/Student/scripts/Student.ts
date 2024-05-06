@@ -1,74 +1,52 @@
-import { QTableColumn } from 'quasar';
-import { defineComponent, ref, onMounted, computed } from 'vue';
+import { QTableColumn, useQuasar } from 'quasar';
+import { InstructorData, fetchInstructor } from 'src/composables/Instructor';
+import { defineComponent, ref, onBeforeMount, computed } from 'vue';
+import { ScheduleData, SetSchedule } from 'src/composables/Schedule';
+import {
+  times,
+  daysOfWeek,
+  spanTrack,
+  calculateRowspan,
+  checkSpanTrack,
+  checkColor,
+  resetSpanTrack,
+  fetchClassSched,
+} from 'src/composables/Timetable';
+import { ProgramData, fetchProgram } from 'src/composables/Program';
 
 export default defineComponent({
   setup() {
-    const text = ref<string>('');
-    const selected = ref<string>('test');
-    const options = ['test', 'test2'];
-
-    const times: string[] = [
-      '7:00AM-7:30AM',
-      '7:30AM-8:00AM',
-      '8:00AM-8:30AM',
-      '8:30AM-9:00AM',
-      '9:00AM-9:30AM',
-      '9:30AM-10:00AM',
-      '10:00AM-10:30AM',
-      '10:30AM-11:00AM',
-      '11:00AM-11:30AM',
-      '11:30AM-12:00PM',
-      '12:00PM-12:30PM',
-      '12:30PM-1:00PM',
-      '1:00PM-1:30PM',
-      '1:30PM-2:00PM',
-      '2:00PM-2:30PM',
-      '2:30PM-3:00PM',
-      '3:00PM-3:30PM',
-      '3:30PM-4:00PM',
-      '4:00PM-4:30PM',
-      '4:30PM-5:00PM',
-      '5:00PM-5:30PM',
-      '5:30PM-6:00PM',
-      '6:00PM-6:30PM',
-      '6:30PM-7:00PM',
-      '7:00PM-7:30PM',
-      '7:30PM-8:00PM',
-    ];
-
-    const daysOfWeek: string[] = [
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-      'Sunday',
-    ];
-
-    const rows = computed(() => {
-      const tempData: any[] = [];
-      times.forEach((time) => {
-        tempData.push({
-          time_slot: time,
-          Monday: '',
-          Tuesday: '',
-          Wednesday: '',
-          Thursday: '',
-          Friday: '',
-          Saturday: '',
-          Sunday: '',
-        });
-      });
-      console.log(tempData);
-
-      return tempData;
+    onBeforeMount(() => {
+      fetchProgram();
+      SetSchedule.value = [];
+      resetSpanTrack();
     });
 
+    const $q = useQuasar();
+
+    const text = ref<string>('');
+    const selectedProgram = ref<number | null>();
+    const programOptions = computed(() => {
+      const tempData = ProgramData.value || [];
+
+      return tempData.map((program) => {
+        return {
+          label: program.abbreviation,
+          value: program.program_id,
+          description: program.program_name,
+        };
+      });
+    });
+
+    const selectedYearLevel = ref<number>();
+    const yearLevelOptions: number[] = [1, 2, 3, 4, 5];
+
+    const selectedBlock = ref<string>('');
+    const blockOptions: string[] = ['A', 'B', 'C', 'D', 'E', 'F'];
     const columns: QTableColumn[] = [
       {
         name: 'timeSlot',
-        label: 'Time Slot',
+        label: 'Time',
         field: 'time_slot',
         align: 'center',
       },
@@ -82,12 +60,90 @@ export default defineComponent({
       ),
     ];
 
+    const displaySched = (time: string, day: string) => {
+      let scheduleContent = ''; // Initialize an empty string to accumulate HTML content
+      const startTime = time.split(' - ')[0];
+
+      if (ScheduleData.value) {
+        console.log(ScheduleData.value);
+        ScheduleData.value.forEach((sched) => {
+          if (sched.start_time === startTime && sched.day === day) {
+            scheduleContent += `
+              <p class='q-mb-none'>${sched.course_code} (${sched.course_type})</p>
+              <p class='q-mb-none'>${sched.room_name}</p>
+              <p class='q-mb-none'>${sched.surname}, ${sched.first_name} ${sched.middle_name[0]}.</p>
+            `;
+          }
+        });
+      }
+
+      return scheduleContent; // Return the accumulated HTML content
+    };
+
+    const handleUpdate = () => {
+      if (
+        !selectedProgram.value ||
+        !selectedYearLevel.value ||
+        !selectedBlock.value
+      ) {
+        return;
+      }
+      // Start notif loading here
+      // notif;
+      $q.notify({
+        type: 'ongoing',
+        group: 'loading',
+        timeout: 1000, // we want to be in control when it gets dismissed
+        spinner: true,
+        message: 'Fetching Schedule...',
+        textColor: 'accent',
+      });
+
+      fetchClassSched(
+        selectedProgram.value!.toString(),
+        selectedYearLevel.value!.toString(),
+        selectedBlock.value
+      )
+        .then(() => {
+          // End notif loading after successful fetch
+          $q.notify({
+            // group: 'loading',
+            icon: 'done', // we add an icon
+            spinner: false, // we reset the spinner setting so the icon can be displayed
+            message: 'Fetching done!',
+            color: 'positive',
+            timeout: 2500, // we will timeout it in 2.5s
+          });
+        })
+        .catch((error) => {
+          $q.notify({
+            type: 'negative',
+            message: error.message,
+            position: 'bottom',
+            color: 'negative',
+            textColor: 'accent',
+          });
+        });
+    };
+
     return {
+      times,
+      daysOfWeek,
       text,
-      selected,
-      options,
+      selectedProgram,
+      programOptions,
       columns,
-      rows,
+      spanTrack,
+      calculateRowspan,
+      ScheduleData,
+      displaySched,
+      checkSpanTrack,
+      checkColor,
+      selectedYearLevel,
+      yearLevelOptions,
+      selectedBlock,
+      blockOptions,
+      handleUpdate,
     };
   },
 });

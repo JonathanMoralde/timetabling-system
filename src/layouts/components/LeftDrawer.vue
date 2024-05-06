@@ -16,7 +16,7 @@
         <q-item
           clickable
           v-ripple
-          :to="{ name: 'dashboard' }"
+          :to="{ name: 'subject-load' }"
           active-class="text-accent active-bg"
           class=""
         >
@@ -24,7 +24,7 @@
             <q-icon name="dashboard" />
           </q-item-section>
 
-          <q-item-section> Dashboard </q-item-section>
+          <q-item-section> Subject Load </q-item-section>
         </q-item>
 
         <q-expansion-item

@@ -9,9 +9,9 @@ const routes: RouteRecordRaw[] = [
     },
     children: [
       {
-        path: 'dashboard',
-        name: 'dashboard',
-        component: () => import('pages/Dashboard/Dashboard.vue'),
+        path: 'subject-load',
+        name: 'subject-load',
+        component: () => import('src/pages/SubjectLoad/SubjectLoad.vue'),
       },
       {
         path: 'timetable',

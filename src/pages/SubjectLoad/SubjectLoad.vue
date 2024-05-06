@@ -96,6 +96,6 @@
   </main>
 </template>
 
-<script lang="ts" src="./scripts/Dashboard.ts"></script>
+<script lang="ts" src="./scripts/SubjectLoad.js"></script>
 
 <style scoped></style>

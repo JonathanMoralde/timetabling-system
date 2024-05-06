@@ -123,6 +123,10 @@ export interface Schedule {
   term: number;
 }
 
+export interface SpanTrack {
+  [key: string]: number;
+}
+
 // FOR ADMIN DETAILS
 export interface Admin {
   user_id: number;

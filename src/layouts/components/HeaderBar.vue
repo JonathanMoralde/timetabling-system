@@ -34,6 +34,7 @@
             console.log(value);
             changeActive(value)
               .then((response) => {
+                // TODO CHECK FIRST IF IN MANAGE DATA BEFORE EXECUTING FETCH SCHEDULE
                 fetchSchedule();
                 $q.notify({
                   message: response.data.message,

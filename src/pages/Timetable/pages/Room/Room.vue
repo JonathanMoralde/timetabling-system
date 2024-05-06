@@ -23,30 +23,67 @@
     <div class="row q-mb-lg">
       <q-select
         outlined
-        v-model="selected"
-        :options="options"
+        v-model="selectedRoom"
+        :options="roomOptions"
         dense
-        label="Square outlined"
+        emit-value
+        map-options
+        hide-bottom-space
+        transition-show="scale"
+        transition-hide="scale"
+        label="Select Room"
         class="col-2"
         :bg-color="$q.dark.isActive ? 'dark' : 'white'"
+        @update:model-value="
+          (value) => {
+            handleUpdate(value);
+          }
+        "
       />
     </div>
 
     <section>
-      <q-table
-        flat
-        bordered
-        :rows="rows"
-        :columns="columns"
-        row-key="time_slot"
-        :rows-per-page-options="[0]"
-        :hide-pagination="true"
-      >
-      </q-table>
+      <q-markup-table flat bordered dense separator="none">
+        <thead>
+          <tr class="q-tr--no-hover">
+            <th
+              v-for="(column, index) in columns"
+              :key="index"
+              :class="`text-${column.align}`"
+            >
+              {{ column.label }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="(time, index) in times"
+            :key="index"
+            class="q-tr--no-hover"
+          >
+            <td class="text-center">
+              {{ time }}
+            </td>
+            <template v-for="(day, index) in daysOfWeek" :key="index">
+              <td
+                v-if="checkSpanTrack(time, day)"
+                :class="checkColor(time, day)"
+                class="text-center"
+                v-html="displaySched(time, day)"
+                :rowspan="calculateRowspan(time, day)"
+              ></td>
+            </template>
+          </tr>
+        </tbody>
+      </q-markup-table>
     </section>
   </main>
 </template>
 
 <script lang="ts" src="./scripts/Room.ts"></script>
 
-<style scoped></style>
+<style scoped>
+.borderedCell {
+  border: solid 1px rgba(255, 255, 255, 0.28);
+}
+</style>
