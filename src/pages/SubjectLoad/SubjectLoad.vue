@@ -52,46 +52,116 @@
 
       <q-select
         outlined
-        v-model="selected"
-        :options="options"
+        v-model="selectedProgram"
+        :options="programOptions"
+        clearable
         dense
-        label="Square outlined"
+        emit-value
+        map-options
+        hide-bottom-space
+        transition-show="scale"
+        transition-hide="scale"
+        label="Select Program"
         class="col-2"
         :bg-color="$q.dark.isActive ? 'dark' : 'white'"
+        @update:model-value="
+          (value) => {
+            handleUpdate(value);
+          }
+        "
       />
     </div>
 
-    <section class="q-mb-lg">
-      <div class="row q-mb-sm">
-        <div class="col-6">
-          <!-- Name -->
-          <div class="row">
-            <p class="col-3 text-bold">Name of Faculty:</p>
-            <p class="col-3">Jonathan Moralde</p>
-          </div>
-
-          <!-- Academic Rank -->
-          <div class="row">
-            <p class="col-3 text-bold">Academic Rank:</p>
-            <p class="col-3">Instructor I</p>
-          </div>
-        </div>
-
-        <div class="col-6">
-          <!-- Status of Appointment -->
-          <div class="row">
-            <p class="col-4 text-bold">Status of Appointment:</p>
-            <p class="col-4">COS College</p>
-          </div>
-
-          <!-- College/Department -->
-          <div class="row">
-            <p class="col-4 text-bold">College/Department:</p>
-            <p class="col-4">Computer Studies Department</p>
-          </div>
-        </div>
+    <section>
+      <!-- <q-table flat bordered :rows="rows" :columns="columns" row-key="name" /> -->
+      <div v-if="data.length == 0" class="text-center">
+        <p>Unable to find results for "{{ text }}""</p>
       </div>
-      <q-table flat bordered :rows="rows" :columns="columns" row-key="name" />
+
+      <!-- <div> -->
+      <div v-for="(instructor, index) in data" :key="index" class="q-mb-lg">
+        <div class="row q-mb-sm">
+          <div class="col-6">
+            <!-- Name -->
+            <div class="row">
+              <p class="col-3 text-bold">Name of Faculty:</p>
+              <p class="col-3">
+                {{
+                  `${instructor.first_name} ${instructor.middle_name}. ${instructor.surname}`
+                }}
+              </p>
+            </div>
+
+            <!-- Academic Rank -->
+            <div class="row">
+              <p class="col-3 text-bold">Academic Rank:</p>
+              <p class="col-3">{{ instructor.academic_rank }}</p>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <!-- Status of Appointment -->
+            <div class="row">
+              <p class="col-4 text-bold">Status of Appointment:</p>
+              <p class="col-4">{{ instructor.employment_status }}</p>
+            </div>
+
+            <!-- College/Department -->
+            <div class="row">
+              <p class="col-4 text-bold">College/Department:</p>
+              <p class="col-4">{{ instructor.department_name }}</p>
+            </div>
+          </div>
+        </div>
+
+        <q-markup-table flat bordered>
+          <thead>
+            <tr>
+              <template v-for="(column, index) in columns" :key="index">
+                <th :class="`text-${column.align} text-uppercase`">
+                  {{ column.label }}
+                </th>
+              </template>
+            </tr>
+          </thead>
+          <tbody>
+            <template
+              v-for="(schedule, index) in instructor.schedules"
+              :key="index"
+            >
+              <tr>
+                <td>{{ schedule.course_code }}</td>
+                <td>{{ schedule.course_name }}</td>
+                <td class="text-center">
+                  {{ `${schedule.start_time} - ${schedule.end_time}` }}
+                </td>
+                <td class="text-center">{{ schedule.day }}</td>
+                <td>{{ schedule.room_name }}</td>
+                <td class="text-center">
+                  {{ (+schedule.lec_unit || 0) + (+schedule.lab_unit || 0) }}
+                </td>
+
+                <td class="text-center">{{ schedule.load_unit }}</td>
+                <td class="text-center">
+                  {{
+                    `${schedule.abbreviation}${schedule.year_level}${schedule.block}`
+                  }}
+                </td>
+              </tr>
+            </template>
+            <tr>
+              <td colspan="5" class="text-center class=text-center">TOTAL</td>
+              <td class="text-center">
+                {{ calculateTotal(instructor.schedules, false) }}
+              </td>
+              <td class="text-center">
+                {{ calculateTotal(instructor.schedules, true) }}
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+        </q-markup-table>
+      </div>
     </section>
   </main>
 </template>

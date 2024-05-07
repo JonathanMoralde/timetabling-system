@@ -69,6 +69,7 @@
         :rows="rows"
         :columns="columns"
         row-key="course_id"
+        table-header-class="text-uppercase"
       >
         <template v-slot:body-cell-action="props">
           <q-td :props="props">

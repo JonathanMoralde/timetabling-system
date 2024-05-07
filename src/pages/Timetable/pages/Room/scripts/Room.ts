@@ -66,8 +66,8 @@ export default defineComponent({
           if (sched.start_time === startTime && sched.day === day) {
             scheduleContent += `
               <p class='q-mb-none'>${sched.course_code} (${sched.course_type})</p>
-              <p class='q-mb-none'>${sched.abbreviation} - ${sched.year_level}${sched.block}</p>
-              <p class='q-mb-none'>${sched.surname}, ${sched.first_name} ${sched.middle_name[0]}.</p>
+              <p class='q-mb-none text-italic text-caption'>${sched.abbreviation} - ${sched.year_level}${sched.block}</p>
+              <p class='q-mb-none text-caption'>${sched.surname}, ${sched.first_name} ${sched.middle_name[0]}.</p>
             `;
           }
         });

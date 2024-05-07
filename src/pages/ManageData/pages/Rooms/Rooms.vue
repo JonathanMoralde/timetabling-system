@@ -50,20 +50,17 @@
           <q-icon name="search" />
         </template>
       </q-input>
-
-      <!-- <q-select
-        outlined
-        v-model="selected"
-        :options="options"
-        dense
-        label="Square outlined"
-        class="col-2"
-        :bg-color="$q.dark.isActive ? 'dark' : 'white'"
-      /> -->
     </div>
 
     <section>
-      <q-table flat bordered :rows="rows" :columns="columns" row-key="room_id">
+      <q-table
+        flat
+        bordered
+        :rows="rows"
+        :columns="columns"
+        row-key="room_id"
+        table-header-class="text-uppercase"
+      >
         <template v-slot:body-cell-action="props">
           <q-td :props="props">
             <!-- Action Column -->

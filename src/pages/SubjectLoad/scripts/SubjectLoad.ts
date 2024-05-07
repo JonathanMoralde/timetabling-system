@@ -1,13 +1,60 @@
-import { QTableProps } from 'quasar';
-import { defineComponent, ref } from 'vue';
+import { stat } from 'fs';
+import { QTableProps, useQuasar } from 'quasar';
+import { ProgramData, fetchProgram } from 'src/composables/Program';
+import { fetchSubjectLoad, SubjectLoadData } from 'src/composables/SubjectLoad';
+import { InstructorScheds } from 'src/interface/interface';
+import { defineComponent, ref, computed, onBeforeMount } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
 export default defineComponent({
   setup() {
-    const text = ref('');
-    const selected = ref('test');
-    const options = ['test', 'test2'];
+    onBeforeMount(() => {
+      fetchProgram();
+      fetchSubjectLoad().then(() => {
+        console.log(SubjectLoadData.value);
+      });
+    });
 
-    const rows = ref([]);
+    const $q = useQuasar();
+    const route = useRoute();
+    const router = useRouter();
+
+    const text = ref('');
+    const selectedProgram = ref<number | null>();
+    const programOptions = computed(() => {
+      const tempData = ProgramData.value || [];
+
+      return tempData.map((program) => {
+        return {
+          label: program.abbreviation,
+          value: program.program_id,
+          description: program.program_name,
+        };
+      });
+    });
+
+    const data = computed(() => {
+      const tempData = SubjectLoadData.value ? SubjectLoadData.value.data : [];
+      const searchTerm = text.value.toLowerCase();
+
+      return tempData.filter((instructor) => {
+        const firstName = instructor.first_name.toLowerCase();
+        const middleName = instructor.middle_name.toLowerCase();
+        const surname = instructor.surname.toLowerCase();
+        const acadRank = instructor.academic_rank.toLowerCase();
+        const status = instructor.employment_status.toLowerCase();
+        const departmentName = instructor.department_name.toLowerCase();
+
+        return (
+          firstName.includes(searchTerm) ||
+          middleName.includes(searchTerm) ||
+          surname.includes(searchTerm) ||
+          acadRank.includes(searchTerm) ||
+          status.includes(searchTerm) ||
+          departmentName.includes(searchTerm)
+        );
+      });
+    });
 
     // For table column
     let columns: QTableProps['columns'] = [
@@ -39,40 +86,93 @@ export default defineComponent({
       },
       {
         name: 'room',
-        align: 'right',
+        align: 'left',
         label: 'Room',
         field: 'room',
         // format: (val) => `₱ ${val.toLocaleString()}`,
       },
       {
         name: 'credit_units',
-        align: 'right',
+        align: 'center',
         label: 'Credit Units',
         field: 'credit_units',
         // format: (val) => `₱ ${val.toLocaleString()}`,
       },
       {
         name: 'load_unit',
-        align: 'right',
+        align: 'center',
         label: 'Load Units',
         field: 'load_unit',
         // format: (val) => `₱ ${val.toLocaleString()}`,
       },
       {
         name: 'class',
-        align: 'right',
+        align: 'center',
         label: 'Class',
         field: 'class',
         // format: (val) => `₱ ${val.toLocaleString()}`,
       },
-      {
-        name: 'action',
-        align: 'left',
-        label: '',
-        field: 'action',
-        style: 'width: 10%',
-      },
     ];
-    return { text, selected, options, rows, columns };
+
+    const calculateTotal = (
+      schedules: readonly InstructorScheds[],
+      isLoadUnit: boolean
+    ) => {
+      let total = 0;
+
+      schedules.forEach((sched) => {
+        if (isLoadUnit) {
+          total += +sched.load_unit;
+        } else {
+          total += +sched.lec_unit + +sched.lab_unit;
+        }
+      });
+
+      return total;
+    };
+
+    const handleUpdate = (value: string | undefined | null) => {
+      console.log(value);
+      $q.notify({
+        type: 'ongoing',
+        group: 'loading',
+        timeout: 1000, // we want to be in control when it gets dismissed
+        spinner: true,
+        message: 'Fetching Schedule...',
+        textColor: 'accent',
+      });
+      fetchSubjectLoad(value ? value : undefined)
+        .then(() => {
+          // End notif loading after successful fetch
+          $q.notify({
+            // group: 'loading',
+            icon: 'done', // we add an icon
+            spinner: false, // we reset the spinner setting so the icon can be displayed
+            message: 'Fetching done!',
+            color: 'positive',
+            timeout: 2500, // we will timeout it in 2.5s
+          });
+        })
+        .catch((error) => {
+          $q.notify({
+            type: 'negative',
+            message: error.message,
+            position: 'bottom',
+            color: 'negative',
+            textColor: 'accent',
+          });
+        });
+    };
+
+    return {
+      text,
+      selectedProgram,
+      programOptions,
+      data,
+      columns,
+      calculateTotal,
+      fetchSubjectLoad,
+      handleUpdate,
+    };
   },
 });

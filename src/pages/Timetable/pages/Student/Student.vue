@@ -89,7 +89,7 @@
             <th
               v-for="(column, index) in columns"
               :key="index"
-              :class="`text-${column.align}`"
+              :class="`text-${column.align} text-uppercase`"
             >
               {{ column.label }}
             </th>

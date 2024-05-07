@@ -63,7 +63,14 @@
     </div>
 
     <section>
-      <q-table flat bordered :rows="rows" :columns="columns" row-key="name">
+      <q-table
+        flat
+        bordered
+        :rows="rows"
+        :columns="columns"
+        row-key="name"
+        table-header-class="text-uppercase"
+      >
         <template v-slot:body-cell-action="props">
           <q-td :props="props">
             <!-- Action Column -->

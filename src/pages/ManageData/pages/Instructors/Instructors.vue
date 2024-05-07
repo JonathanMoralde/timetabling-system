@@ -74,6 +74,7 @@
         :rows="rows"
         :columns="columns"
         row-key="instructor_id"
+        table-header-class="text-uppercase"
         ><template v-slot:body-cell-action="props">
           <q-td :props="props">
             <!-- Action Column -->
@@ -101,7 +102,17 @@
                       class="menu-list"
                       @click="console.log('clicked view')"
                     >
-                      <q-item-section>View</q-item-section>
+                      <q-item-section>View Details</q-item-section>
+                    </q-item>
+
+                    <!-- Assign Course -->
+                    <q-item
+                      clickable
+                      v-close-popup
+                      class="menu-list"
+                      @click="console.log('clicked Assign course')"
+                    >
+                      <q-item-section>Assign Course</q-item-section>
                     </q-item>
 
                     <!-- Edit -->

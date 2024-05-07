@@ -123,6 +123,7 @@ export interface Schedule {
   term: number;
 }
 
+// For Timetable
 export interface SpanTrack {
   [key: string]: number;
 }
@@ -138,4 +139,42 @@ export interface Admin {
   surname: string;
   profile_pic: string;
   email: string;
+}
+
+// FOR SUMMARY OF SUBJECT LOAD
+export interface SubjectLoadAPIResponse {
+  success: boolean;
+  data: InstructorDetails[];
+}
+
+interface InstructorDetails {
+  instructor_id: number;
+  surname: string;
+  middle_name: string;
+  first_name: string;
+  academic_rank: string;
+  employment_status: string;
+  department_name: string;
+  schedules: InstructorScheds[];
+}
+
+export interface InstructorScheds {
+  schedule_id: number;
+  course_id: number;
+  course_name: string;
+  course_code: string;
+  day: string;
+  start_time: string;
+  end_time: string;
+  room_id: number;
+  room_name: string;
+  course_type_id: number;
+  lec_unit: number;
+  lab_unit: number;
+  load_unit: number;
+  program_id: number;
+  abbreviation: string;
+  year_level: number;
+  block: string;
+  school_year_semester_id: number;
 }
