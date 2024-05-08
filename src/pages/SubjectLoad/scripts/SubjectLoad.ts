@@ -1,6 +1,5 @@
-import { stat } from 'fs';
 import { QTableProps, useQuasar } from 'quasar';
-import { ProgramData, fetchProgram } from 'src/composables/Program';
+import { DepartmentData, fetchDepartment } from 'src/composables/Department';
 import { fetchSubjectLoad, SubjectLoadData } from 'src/composables/SubjectLoad';
 import { InstructorScheds } from 'src/interface/interface';
 import { defineComponent, ref, computed, onBeforeMount } from 'vue';
@@ -9,26 +8,24 @@ import { useRoute, useRouter } from 'vue-router';
 export default defineComponent({
   setup() {
     onBeforeMount(() => {
-      fetchProgram();
+      fetchDepartment();
       fetchSubjectLoad().then(() => {
         console.log(SubjectLoadData.value);
       });
     });
 
     const $q = useQuasar();
-    const route = useRoute();
-    const router = useRouter();
 
     const text = ref('');
-    const selectedProgram = ref<number | null>();
-    const programOptions = computed(() => {
-      const tempData = ProgramData.value || [];
+    const selectedDepartment = ref<number | null>();
+    const departmentOptions = computed(() => {
+      const tempData = DepartmentData.value || [];
 
-      return tempData.map((program) => {
+      return tempData.map((department) => {
         return {
-          label: program.abbreviation,
-          value: program.program_id,
-          description: program.program_name,
+          label: department.department_name,
+          value: department.department_id,
+          description: department.department_name,
         };
       });
     });
@@ -166,8 +163,8 @@ export default defineComponent({
 
     return {
       text,
-      selectedProgram,
-      programOptions,
+      selectedDepartment,
+      departmentOptions,
       data,
       columns,
       calculateTotal,

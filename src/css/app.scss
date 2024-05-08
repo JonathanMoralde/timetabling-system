@@ -28,6 +28,13 @@ body {
   .q-uploader-container {
     border-color: #0000001f;
   }
+
+  // for q-select
+  .q-field__native {
+    text-wrap: nowrap;
+
+    overflow: hidden;
+  }
 }
 
 .body--dark {
@@ -48,5 +55,12 @@ body {
   // for q-uploader
   .q-uploader-container {
     border-color: #ffffff47;
+  }
+
+  // for q-select
+  .q-field__native {
+    text-wrap: nowrap;
+
+    overflow: hidden;
   }
 }

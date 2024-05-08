@@ -52,8 +52,8 @@
 
       <q-select
         outlined
-        v-model="selectedProgram"
-        :options="programOptions"
+        v-model="selectedDepartment"
+        :options="departmentOptions"
         clearable
         dense
         emit-value
@@ -61,8 +61,8 @@
         hide-bottom-space
         transition-show="scale"
         transition-hide="scale"
-        label="Select Program"
-        class="col-2"
+        label="Select Department"
+        class="col-2 span-fix"
         :bg-color="$q.dark.isActive ? 'dark' : 'white'"
         @update:model-value="
           (value) => {
@@ -74,8 +74,11 @@
 
     <section>
       <!-- <q-table flat bordered :rows="rows" :columns="columns" row-key="name" /> -->
-      <div v-if="data.length == 0" class="text-center">
+      <div v-if="data.length == 0 && text" class="text-center">
         <p>Unable to find results for "{{ text }}""</p>
+      </div>
+      <div v-if="data.length == 0 && !text" class="text-center">
+        <p>No data available</p>
       </div>
 
       <!-- <div> -->
