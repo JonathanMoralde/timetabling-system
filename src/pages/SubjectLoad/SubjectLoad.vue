@@ -90,7 +90,7 @@
               <p class="col-3 text-bold">Name of Faculty:</p>
               <p class="col-3">
                 {{
-                  `${instructor.first_name} ${instructor.middle_name}. ${instructor.surname}`
+                  `${instructor.first_name} ${instructor.middle_name[0]}. ${instructor.surname}`
                 }}
               </p>
             </div>

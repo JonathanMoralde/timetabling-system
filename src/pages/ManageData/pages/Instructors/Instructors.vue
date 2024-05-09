@@ -100,7 +100,11 @@
                       clickable
                       v-close-popup
                       class="menu-list"
-                      @click="console.log('clicked view')"
+                      @click="
+                        $router.push(
+                          `instructor-details/${props.row.instructor_id}`
+                        )
+                      "
                     >
                       <q-item-section>View Details</q-item-section>
                     </q-item>
@@ -110,7 +114,11 @@
                       clickable
                       v-close-popup
                       class="menu-list"
-                      @click="console.log('clicked Assign course')"
+                      @click="
+                        $router.push(
+                          `assign-course/${props.row.instructor_id}/${props.row.instructor_name}`
+                        )
+                      "
                     >
                       <q-item-section>Assign Course</q-item-section>
                     </q-item>

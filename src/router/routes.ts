@@ -163,10 +163,18 @@ const routes: RouteRecordRaw[] = [
               import('pages/ManageData/pages/Instructors/Instructors.vue'),
           },
           {
-            path: 'instructors',
-            name: 'instructors',
+            path: 'assign-course/:instructorId/:instructorName',
+            name: 'assign-course',
             component: () =>
-              import('pages/ManageData/pages/Instructors/Instructors.vue'),
+              import('pages/ManageData/pages/Instructors/AssignCourse.vue'),
+          },
+          {
+            path: 'instructor-details/:instructorId',
+            name: 'instructor-details',
+            component: () =>
+              import(
+                'pages/ManageData/pages/Instructors/InstructorDetails.vue'
+              ),
           },
           {
             path: 'schedules',

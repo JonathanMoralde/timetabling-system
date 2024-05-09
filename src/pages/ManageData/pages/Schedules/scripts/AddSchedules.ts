@@ -4,12 +4,14 @@ import { CourseTypeData, fetchCourseType } from 'src/composables/CourseType';
 import { InstructorData, fetchInstructor } from 'src/composables/Instructor';
 import { ProgramData, fetchProgram } from 'src/composables/Program';
 import { RoomData, fetchRoom } from 'src/composables/Room';
+import { fetchCoursesAssigned } from 'src/composables/Instructor';
 import {
   fetchIndivSchedule,
   insertSchedule,
   updateSchedule,
 } from 'src/composables/Schedule';
 import { fetchSYSem } from 'src/composables/SemSYSelect';
+import { AssignedCourse } from 'src/interface/interface';
 import { defineComponent, ref, onBeforeMount, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
@@ -61,9 +63,15 @@ export default defineComponent({
       });
     });
 
+    const assignedCourses = ref<AssignedCourse[]>([]);
+    const handleInstructorSelect = (value: string) => {
+      fetchCoursesAssigned(value).then((response) => {
+        assignedCourses.value = response.data;
+      });
+    };
     const selectedCourse = ref<number | null>(null);
     const courseOptions = computed(() => {
-      const tempData = CourseData.value || [];
+      const tempData = assignedCourses.value || [];
 
       return tempData.map((course) => {
         return {
@@ -264,6 +272,7 @@ export default defineComponent({
       handleSubmit,
       handleEdit,
       btnLoadingState,
+      handleInstructorSelect,
     };
   },
 });

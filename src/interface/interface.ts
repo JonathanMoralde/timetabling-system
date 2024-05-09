@@ -178,3 +178,15 @@ export interface InstructorScheds {
   block: string;
   school_year_semester_id: number;
 }
+
+// For Assign Course
+export interface AssignedCourse {
+  courses_assigned_id: number;
+  instructor_id: number;
+  course_id: number;
+  course_code: string;
+  course_name: string;
+  year_level: number;
+  semester: number;
+  // Add other properties if available
+}

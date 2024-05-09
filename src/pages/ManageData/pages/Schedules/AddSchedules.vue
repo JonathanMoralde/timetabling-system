@@ -65,6 +65,11 @@
           transition-hide="scale"
           :options="instructorOptions"
           :rules="[(val) => (val !== null && val !== '') || '']"
+          @update:model-value="
+            (value) => {
+              handleInstructorSelect(value);
+            }
+          "
         >
         </q-select>
       </div>

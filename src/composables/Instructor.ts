@@ -136,6 +136,66 @@ const deleteInstructor = async (instructorId: string, userId: string) => {
   }
 };
 
+// Assign courses to the instructor
+const assignCourses = async (instructorId: string, courses: number[]) => {
+  const url =
+    'http://localhost/timetable-system-backend/api/admin/managedata/assign_course.php';
+
+  const instructorData = new FormData();
+  instructorData.append('instructorId', instructorId);
+  instructorData.append('courses', JSON.stringify(courses));
+
+  try {
+    const response = await axios.post(url, instructorData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      maxBodyLength: Infinity,
+      withCredentials: true,
+    });
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Fetch the courses assigned to the instructor
+const fetchCoursesAssigned = async (instructorId: string) => {
+  const url = `http://localhost/timetable-system-backend/api/admin/managedata/fetch_courses_assigned.php?instructorId=${instructorId}`;
+
+  try {
+    const response = await axios.get(url, {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    throw error; // Throw the error to be caught by the caller
+  }
+};
+
+// Delete course assigned
+const deleteCourseAssigned = async (courseAssignedId: string) => {
+  const url =
+    'http://localhost/timetable-system-backend/api/admin/managedata/delete_course_assigned.php';
+
+  const instructorData = new FormData();
+  instructorData.append('courseAssignedId', courseAssignedId);
+
+  try {
+    const response = await axios.post(url, instructorData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      maxBodyLength: Infinity,
+      withCredentials: true,
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export {
   SetInstructor,
   InstructorData,
@@ -144,4 +204,7 @@ export {
   fetchIndivInstructor,
   updateInstructor,
   deleteInstructor,
+  assignCourses,
+  fetchCoursesAssigned,
+  deleteCourseAssigned,
 };
