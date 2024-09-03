@@ -5,6 +5,7 @@ import { InstructorData, fetchInstructor } from 'src/composables/Instructor';
 import { ProgramData, fetchProgram } from 'src/composables/Program';
 import { RoomData, fetchRoom } from 'src/composables/Room';
 import { fetchCoursesAssigned } from 'src/composables/Instructor';
+import { ModalState, ToggleModal } from 'src/composables/Triggers';
 import {
   fetchIndivSchedule,
   insertSchedule,
@@ -273,6 +274,8 @@ export default defineComponent({
       handleEdit,
       btnLoadingState,
       handleInstructorSelect,
+      ModalState,
+      ToggleModal,
     };
   },
 });

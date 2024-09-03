@@ -29,7 +29,7 @@
             class="text-h2 q-ma-none text-bold q-mb-lg"
             :class="$q.dark.isActive ? 'text-white' : 'text-primary'"
           >
-            Automated Class
+            Web-based Class
           </h1>
           <h1 class="text-h2 q-ma-none text-bold custom-text-style q-mb-lg">
             Timetabling System
@@ -39,7 +39,7 @@
             :class="$q.dark.isActive ? 'bg-white' : 'bg-primary'"
           ></div>
           <p class="q-ma-none text-subtitle1">
-            A web-based system that automates class schedules
+            A system that manages class scheduling
           </p>
         </div>
         <div class="q-pr-xl auth-form-width">

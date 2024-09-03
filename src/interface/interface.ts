@@ -60,10 +60,14 @@ export interface Course {
   semester: number;
   course_type_id: number;
   course_type: string;
+  duration: number;
+  lec_unt: number;
+  lab_unit: number;
   curriculum_id: number;
   year_effectivity: number;
   program_id: number;
   abbreviation: string;
+  department_id: number;
 }
 
 // FOR MANAGE DATA- STUDENT

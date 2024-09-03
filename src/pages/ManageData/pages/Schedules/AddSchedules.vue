@@ -27,7 +27,7 @@
           label="Automate Scheduling"
           dense
           class="q-px-md q-py-xs q-mr-md"
-          @click="console.log('clicked')"
+          @click="ToggleModal"
         />
         <!-- import btn -->
         <q-btn
@@ -321,6 +321,37 @@
         />
       </div>
     </q-form>
+
+    <!-- For Modal -->
+    <q-dialog v-model="ModalState" persistent>
+      <q-card>
+        <q-card-section class="text-center">
+          <q-icon name="warning" size="xl" />
+          <p>
+            This will overwrite schedules that were already created for this
+            school year & semester.
+          </p>
+          <p>
+            Make sure to assign courses to each instructor before proceeding.
+          </p>
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn
+            flat
+            label="Cancel"
+            :color="$q.dark.isActive ? 'white' : 'primary'"
+            v-close-popup
+          />
+          <q-btn
+            flat
+            label="Confirm"
+            :color="$q.dark.isActive ? 'white' : 'primary'"
+            v-close-popup
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </main>
 </template>
 

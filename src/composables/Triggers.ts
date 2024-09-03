@@ -1,10 +1,17 @@
 import { ref } from 'vue';
 
 // For LeftDrawer.vue
-const LeftDrawerState = ref(false);
+const LeftDrawerState = ref<boolean>(false);
 
 const ToggleLeftDrawer = () => {
   LeftDrawerState.value = !LeftDrawerState.value;
 };
 
-export { LeftDrawerState, ToggleLeftDrawer };
+// for modal
+const ModalState = ref<boolean>(false);
+
+const ToggleModal = () => {
+  ModalState.value = !ModalState.value;
+};
+
+export { LeftDrawerState, ToggleLeftDrawer, ModalState, ToggleModal };
